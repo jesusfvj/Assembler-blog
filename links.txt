@@ -1,0 +1,11 @@
+Resources
+  http://localhost:3000/posts
+  http://localhost:3000/users
+  http://localhost:3000/comments
+
+  Home
+  http://localhost:3000/
+
+  div.row*4>div.col*3>div.card[style=width:18rem]>img[src=https://picsum.photos/id/200/320/200][alt=image-of-nature].card-img-top{}div.card-body{}>h5.card-title{Card title $}p.card-text{Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi, labore?}a.btn.btn-primary{Read more}
+
+  h5.card-title.title-post{Card title $}
