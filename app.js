@@ -138,7 +138,27 @@ let divCardContainer = document.getElementsByClassName("col");
 let url = "http://localhost:3000/posts/";
 let setId;
 
-function fetchDelete(){
+
+function fetchDelete(e){
+  let elementForDelete = e.target.closest('div-card');
+  let id = elementForDelete;
+
+  fetch(url + id, {
+    method: 'DELETE'
+})
+    .then(res => res.json)
+    .then(response => {
+    // Eliminar fila del DOM
+    elementForDelete.remove();
+})
+    .catch(error => {
+    console.log('Error: ' + error);
+});  
+debugger
+}
+
+
+/* function fetchDelete(e){
   for(let x=0; x<divCard.length; x++){
     //divCard[x].id = idForSet; 
     idForSet[x] = divCard.id;
@@ -154,14 +174,16 @@ function fetchDelete(){
           //let allButtonsValueString = allButtonsValue.toString(); 
           allButtons[idCard].setAttribute("id", "allButtonsValue");
           }*/
-      fetch(url + idForSet, deleteMethod) 
+      /* fetch(url + idForSet, deleteMethod) 
       .then(response => response.json())
       .then((rem =>{
         divCardContainer.remove(); 
       }))
       .catch(error => console.log(error))
         debugger
-      }
+      } */ 
+
+
       
     
 
