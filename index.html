@@ -15,12 +15,6 @@
 </head>
 <body>
     <header>
-        <!-- <nav class="bg-image card shadow-1-strong d-flex justify-content-center align-items-center" style="height: 60vh; background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover;">
-            <div class="d-flex justify-content-center align-items-center"></div>
-                <h1 class="text-light fw-lighter display-1">NATURE PEACE</h1>
-                <p class="text-white fw-lighter h4">A blog to make you breath again</p>
-            </div>
-        </nav> -->
         <nav class="unsplash-image-nav bg-image card shadow-1-strong d-flex justify-content-center align-items-center" style="height: 100vh; background-size: cover;">
             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(4px);
             background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
@@ -32,14 +26,13 @@
         </nav>
     </header>
     <main style="margin-top: 6rem; max-width: 1400px;">
-
         <!-- Modal principal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
                 <div class="modal-content">
                     <div class="unsplash-image-modal modal-header bg-image card shadow-1-strong" style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover;">
-                        <h5 class="modal-title h2 text-white text-center" id="exampleModalLabel"></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h5 class="modal-title h2 text-white text-center" id="exampleModalLabel"></h5>
                     </div>
                     <div class="modal-body lh-lg fw-light">
                     </div>
@@ -52,29 +45,28 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary">Comments</button>
                         <button type="button" class="btn btn-primary">Edit</button>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                        <button type="button" class="btn btn-primary showmodal" data-show-modal="infoModal" data-toggle="modal" data-bs-target="#infoModal" data-bs-dismiss="modal">Delete</button>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!--TOAST-->
-
-      <!--   <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
-
-        <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
-            <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <img src="..." class="rounded me-2" alt="...">
-                    <strong class="me-auto">Bootstrap</strong>
-                    <small>11 mins ago</small>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                    Hello, world! This is a toast message.
+                <!-- Second nested Modal -->
+        <div class="modal fade" id="infoModal" tabindex="1" aria-labelledby="infoModalLabel" aria-hidden="true" data-bs-backdrop="static">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="unsplash-image-modal modal-header bg-image card shadow-1-strong" style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover;">
+                            <h5 class="modal-title" id="infoModalLabel">Modal Title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>The Second Modal</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
-        </div> -->
+        </div>
 
         <div id="gridParentContainer" class="container text-center" style="width: 100%;">
 

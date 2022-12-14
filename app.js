@@ -9,7 +9,7 @@ const unsplashImageNav = document.getElementsByClassName("unsplash-image-nav")[0
 const userData = document.getElementsByClassName("user-data");
 const unsplashImage = document.getElementsByClassName("unsplash-image");
 
-gridParentContainer.addEventListener('click', showModal, false);
+gridParentContainer.addEventListener('click', showModalApi, false);
 
 fetch("http://localhost:3000/posts")
 .then((response) => response.json())
@@ -35,7 +35,7 @@ fetch("https://api.unsplash.com/search/photos?query=national-geographic&per_page
   unsplashImageNav.style.backgroundImage = "url('https://source.unsplash.com/9wg5jCEPBsw/1600x900')";
 });
 
-function showModal(event){
+function showModalApi(event){
   let i = Number(event.target.id);
   console.log(event.target.id);
   fetch("http://localhost:3000/posts")
@@ -69,5 +69,24 @@ if (toastTrigger) {
   })
 }
 
-console.log({unsplashImageModal})
-console.log(titlePost)
+/* const myModal = document.getElementById('myModal')
+const myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', () => {
+  myInput.focus()
+}) */
+
+Array.from(document.getElementsByClassName('showmodal')).forEach( (e) => {
+  e.addEventListener('click', function(element) {
+    element.preventDefault();
+    if (e.hasAttribute('data-show-modal')) {
+      showModal(e.getAttribute('data-show-modal'));
+    }
+  });
+});
+// Show modal dialog
+function showModal(modal) {
+  const mid = document.getElementById(modal);
+  let myModal = new bootstrap.Modal(mid);
+  myModal.show();
+}
