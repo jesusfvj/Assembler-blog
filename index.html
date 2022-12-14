@@ -15,7 +15,7 @@
 </head>
 <body>
     <header>
-        <nav class="unsplash-image-nav bg-image card shadow-1-strong d-flex justify-content-center align-items-center" style="height: 100vh; background-size: cover;">
+        <nav class="unsplash-image-nav bg-image card shadow-1-strong d-flex justify-content-center align-items-center rounded-0" style="height: 100vh; background-size: cover; background-position: center;">
             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(4px);
             background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
                 <div class="d-flex flex-column justify-content-center align-items-center h-100">
@@ -30,22 +30,36 @@
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="unsplash-image-modal modal-header bg-image card shadow-1-strong" style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover;">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        <h5 class="modal-title h2 text-white text-center" id="exampleModalLabel"></h5>
-                    </div>
-                    <div class="modal-body lh-lg fw-light">
+                    <div class="unsplash-image-modal bg-image card shadow-1-strong rounded-0" style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center;">
+                        <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(4px);
+                        background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
+                            <button type="button" class="btn-close btn-close-white float-end" data-bs-dismiss="modal" aria-label="Close" style="margin: 0.5rem 0.5rem 0 0;"></button>
+                            <h5 class="modal-title h2 text-white text-center" id="exampleModalLabel" style="margin: 2rem 0; padding: 0 3rem"></h5>
+                        </div>
                     </div>
                     <div class="modal-body">
-                        <hr>
-                        <h5 class="text-end fs-6 fw-bolder"><small>Editor</small></h5>
-                        <p class="user-data text-end my-0 fs-6"></p>
-                        <p class="user-data text-end fs-6"></p>
+                        <div class="info-modal-body lh-lg fw-light" style="padding: 2rem;">
+                            content
+                        </div>
+                        <div class="comment-container lh-lg border" style="margin: 2rem 0 0 0; padding: 2rem;">
+                            <h5 class="fs-6 fw-bolder"><small>Comments</small></h5>
+                            <div class="collapse collapse-comments-container" id="collapseCommentsId">
+                                <div class="collapse-comments">
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary mr-auto comment-button" data-bs-toggle="collapse" data-bs-target="#collapseCommentsId" aria-expanded="false" aria-controls="collapseCommentsId" style="margin-top:2rem;"><small>View more comments</small></button>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Comments</button>
-                        <button type="button" class="btn btn-primary">Edit</button>
-                        <button type="button" class="btn btn-primary showmodal" data-show-modal="infoModal" data-toggle="modal" data-bs-target="#infoModal" data-bs-dismiss="modal">Delete</button>
+                    <div class="modal-footer justify-content-between">
+                        <div class="my-0">
+                            <!-- <h5 class="text-start fs-6 fw-bolder my-0 text-muted"><small>Editor</small></h5> -->
+                            <p class="user-data text-start my-0 fs-6 text-muted"></p>
+                            <p class="user-data text-start my-0 fs-6 text-muted"></p>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-primary">Edit</button>
+                            <button type="button" class="btn btn-primary showmodal" data-show-modal="infoModal" data-toggle="modal" data-bs-target="#infoModal" data-bs-dismiss="modal">Delete</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -55,8 +69,8 @@
             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
                 <div class="modal-content">
                     <div class="unsplash-image-modal modal-header bg-image card shadow-1-strong" style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover;">
-                            <h5 class="modal-title" id="infoModalLabel">Modal Title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h5 class="modal-title" id="infoModalLabel">Modal Title</h5>
                     </div>
                     <div class="modal-body">
                         <p>The Second Modal</p>
@@ -220,8 +234,8 @@
                 </div>
             </div>
         </div>
-            </div>
         </div>
+    </div>
     </main>
     <footer></footer>
 </body>
