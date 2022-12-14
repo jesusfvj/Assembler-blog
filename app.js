@@ -4,7 +4,7 @@ const cardBody = document.getElementsByClassName("card-body");
 const gridParentContainer = document.getElementById("gridParentContainer");
 const modalTitle = document.getElementsByClassName("modal-title")[0];
 const infoModalBody = document.getElementsByClassName("info-modal-body")[0];
-const unsplashImageModal = document.getElementsByClassName("unsplash-image-modal")[0];
+const unsplashImageModal = document.getElementsByClassName("unsplash-image-modal");
 const unsplashImageNav = document.getElementsByClassName("unsplash-image-nav")[0];
 const userData = document.getElementsByClassName("user-data");
 const unsplashImage = document.getElementsByClassName("unsplash-image");
@@ -12,6 +12,8 @@ const commentContainer = document.getElementsByClassName("comment-container")[0]
 const commentButton = document.getElementsByClassName("comment-button")[0];
 const collapseComments = document.getElementsByClassName("collapse-comments")[0];
 const collapseCommentsContainer = document.getElementsByClassName("collapse-comments-container")[0];
+const formControlTextareaOne = document.getElementById("formControlTextareaOne");
+const formControlTextareaTwo = document.getElementById("formControlTextareaTwo");
 let idCard;
 
 gridParentContainer.addEventListener('click', showModalApi, false);
@@ -56,6 +58,8 @@ function showModalApi(event){
       modalTitle.innerText = data[idCard].title;
       infoModalBody.innerText = data[idCard].body;
       userId = data[idCard].userId;
+      formControlTextareaOne.value = data[idCard].title;
+      formControlTextareaTwo.value = data[idCard].body;
   })
 
   fetch("http://localhost:3000/users")
@@ -87,7 +91,7 @@ function showModalApi(event){
           commentData = document.getElementsByClassName("comment-data");
           commentCounter++;
           for(z;z<commentData.length;z+=3){
-            commentData[z].innerHTML = '<u>' + data[x].name + '</u>';
+            commentData[z].innerText = data[x].name;
             commentData[z+1].innerText = data[x].email;
             commentData[z+2].innerText = data[x].body;
           }
@@ -104,7 +108,7 @@ function showModalApi(event){
           collapseComments.appendChild(paragraphCommentComment);
           commentData = document.getElementsByClassName("comment-data");
           for(z;z<commentData.length;z+=3){
-            commentData[z].innerHTML = '<u>' + data[x].name + '</u>';
+            commentData[z].innerText = data[x].name;
             commentData[z+1].innerText = data[x].email;
             commentData[z+2].innerText = data[x].body;
         }
@@ -115,7 +119,9 @@ function showModalApi(event){
   fetch("https://api.unsplash.com/search/photos?query=national-geographic&per_page=9&color=blue&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
   .then((response) => response.json())
   .then((data) => {
-    unsplashImageModal.style.backgroundImage = "url('https://source.unsplash.com/" + data.results[idCard].id + "/1600x900')";
+    for(let l=0; l<unsplashImageModal.length; l++){
+      unsplashImageModal[l].style.backgroundImage = "url('https://source.unsplash.com/" + data.results[idCard].id + "/1600x900')";
+    }
   });
 }
 
