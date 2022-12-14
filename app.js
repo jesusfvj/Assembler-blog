@@ -8,10 +8,12 @@ const unsplashImageModal = document.getElementsByClassName("unsplash-image-modal
 const unsplashImageNav = document.getElementsByClassName("unsplash-image-nav")[0];
 const userData = document.getElementsByClassName("user-data");
 const unsplashImage = document.getElementsByClassName("unsplash-image");
-let idCard; 
+let idCard;
+const cardToRemove =  document.getElementsByClassName("card");
 
 
 gridParentContainer.addEventListener('click', showModal, false);
+let idForSet = [];
 
 fetch("http://localhost:3000/posts")
 .then((response) => response.json())
@@ -19,6 +21,8 @@ fetch("http://localhost:3000/posts")
   for(let i=0; i<data.length; i++){
     titlePost[i].innerText = data[i].title;
     bodyPost[i].innerText = data[i].body.substring(0, 75) + '...';
+    idForSet = data[i].id;
+    divCard[i].setAttribute("id", idForSet);
   }
 })
 
@@ -61,8 +65,6 @@ function showModal(event){
     unsplashImageModal.style.backgroundImage = "url('https://source.unsplash.com/" + data.results[idCard].id + "/1600x900')";
   });
 
-console.log(idCard)
-  return idCard;
 }
 
 const toastTrigger = document.getElementById('liveToastBtn')
@@ -90,7 +92,6 @@ const showComments = document.querySelector("#buttonComments");
 
 buttonModify.addEventListener("click", fetchPut);
 buttonDelete.addEventListener("click", fetchDelete);
-showComments.addEventListener("click", showCommentsFn); 
 
 // MODIFY 
 
@@ -120,36 +121,50 @@ function fetchPut(){
  
 // DELETE
 
-let divCard = document.getElementsByClassName("card");
+let divCard = document.getElementsByClassName("div-card");
 let divCardContainer = document.getElementsByClassName("col");
 
+
+/*async function fetchDelete(id){
+  try{
+    let response = await fetch(`http://localhost:3000/posts/${id}`, {
+                method: "DELETE",
+                })
+  } catch (error){ colsole.log(error)}
+  divCardContainer.removeChild(); 
+}*/
+
+
+let url = "http://localhost:3000/posts/";
+let setId;
+
 function fetchDelete(){
+  for(let x=0; x<divCard.length; x++){
+    //divCard[x].id = idForSet; 
+    idForSet[x] = divCard.id;
+}
    const deleteMethod = {
         method: 'DELETE', 
  }
-
- const allButtons = document.getElementsByClassName("all-buttons")
+ /*const allButtons = document.getElementsByClassName("all-buttons")
           for(idCard; idCard<allButtons.length; idCard++){
           let allButtonsValue = Number(allButtons[idCard].getAttribute('id'));
           allButtons[idCard].removeAttribute('id');
           allButtonsValue++; 
-          let allButtonsValueString = allButtonsValue.toString(); 
-          allButtons[idCard].setAttribute("id", "allButtonsValueString");
-          }
-          
-      fetch("http://localhost:3000/posts/" + idCard, deleteMethod) 
+          //let allButtonsValueString = allButtonsValue.toString(); 
+          allButtons[idCard].setAttribute("id", "allButtonsValue");
+          }*/
+      fetch(url + idForSet, deleteMethod) 
       .then(response => response.json())
-      .then((data) => {
-        divCardContainer.remove()},
-        )
-      .catch((error) => console.log(error))
+      .then((rem =>{
+        divCardContainer.remove(); 
+      }))
+      .catch(error => console.log(error))
+        debugger
+      }
+      
+    
 
-     // const idButtons = document.getElementsByTagNameNS(id)
-    //  console.log(idButtons)    
-      debugger
-
-}
- 
 
 
 
