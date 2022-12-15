@@ -4,7 +4,7 @@ const cardBody = document.getElementsByClassName("card-body");
 const gridParentContainer = document.getElementById("gridParentContainer");
 const modalTitle = document.getElementsByClassName("modal-title")[0];
 const infoModalBody = document.getElementsByClassName("info-modal-body")[0];
-const unsplashImageModal = document.getElementsByClassName("unsplash-image-modal");
+let unsplashImageModal = document.getElementsByClassName("unsplash-image-modal");
 const unsplashImageNav = document.getElementsByClassName("unsplash-image-nav")[0];
 const userData = document.getElementsByClassName("user-data");
 const unsplashImage = document.getElementsByClassName("unsplash-image");
@@ -16,28 +16,38 @@ const formControlTextareaOne = document.getElementById("formControlTextareaOne")
 const formControlTextareaTwo = document.getElementById("formControlTextareaTwo");
 const editButton = document.getElementById("editButton");
 const deleteButton = document.getElementById("deleteButton");
-const divCardContainer = document.getElementsByClassName("div-card-container");
-let allButtons = document.getElementsByClassName("all-buttons");
+const viewComments = document.getElementById("viewComments");
+const buttonComments = document.getElementById("buttonComments");
+let divCardContainer = document.getElementsByClassName("div-card-container");
+let allButtons;
 let counterPhotos;
 let idCard;
+let counterBtnComments = true;
 
 gridParentContainer.addEventListener('click', showModalApi, false);
 editButton.addEventListener('click', editPost);
+buttonComments.addEventListener('click', changeNameButtonComments);
 deleteButton.addEventListener('click', deletePost);
+document.addEventListener("DOMContentLoaded", fetchPosts);
+document.addEventListener("DOMContentLoaded", fetchImages);
 
-fetch("http://localhost:3000/posts")
-  .then((response) => response.json())
-  .then((data) => {
-    for (let i = 0; i < data.length; i++) {
-      if(titlePost[i]){
-      titlePost[i].innerText = data[i].title;
-      bodyPost[i].innerText = data[i].body.substring(0, 85) + '...';
-      if (allButtons[i]) {
-        allButtons[i].setAttribute("id", data[i].id);
+function fetchPosts() {
+  fetch("http://localhost:3000/posts")
+    .then((response) => response.json())
+    .then((data) => {
+      allButtons = document.getElementsByClassName("all-buttons");
+      for (let i = 0; i < data.length; i++) {
+        if (titlePost[i]) {
+          titlePost[i].innerText = data[i].title;
+          bodyPost[i].innerText = data[i].body.substring(0, 85) + '...';
+          if (allButtons[i]) {
+            let hello = allButtons[i];
+            allButtons[i].setAttribute("id", data[i].id);
+          }
+        }
       }
-    }
-  }
-  })
+    })
+}
 
 fetch("https://api.unsplash.com/search/photos?query=national-geographic&per_page=9&color=blue&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
   .then((response) => response.json())
@@ -45,18 +55,19 @@ fetch("https://api.unsplash.com/search/photos?query=national-geographic&per_page
     unsplashImageNav.style.backgroundImage = "url('https://source.unsplash.com/9wg5jCEPBsw/1600x900')";
   });
 
-  fetch("https://api.unsplash.com/search/photos?query=forest,mountains&orientation=landscape&per_page=3000&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
+function fetchImages() {
+  fetch("https://api.unsplash.com/search/photos?query=forest,mountains&orientation=landscape&per_page=100&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
     .then((response) => response.json())
     .then((data) => {
       allButtons = document.getElementsByClassName("all-buttons");
-      for (let i = 0; i < 100; i++) {
-        if(allButtons[i]){
-            counterPhotos = Number(allButtons[i].getAttribute('id'))
-            unsplashImage[i].style.backgroundImage = "url('https://source.unsplash.com/" + data.results[counterPhotos-1].id + "/1600x900')";
-          }
+      for (let i = 0; i < data.results.length; i++) {
+        if (allButtons[i]) {
+          counterPhotos = Number(allButtons[i].getAttribute('id'))
+          unsplashImage[i].style.backgroundImage = "url('https://source.unsplash.com/" + data.results[counterPhotos - 1].id + "/1600x900')";
         }
       }
-    )
+    })
+}
 
 function showModalApi(event) {
   idCard = Number(event.target.id);
@@ -136,11 +147,14 @@ function showModalApi(event) {
       }
     })
 
-    fetch("https://api.unsplash.com/search/photos?query=forest,mountains&orientation=landscape&per_page=9&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
+  fetch("https://api.unsplash.com/search/photos?query=forest,mountains&orientation=landscape&per_page=9&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
     .then((response) => response.json())
     .then((data) => {
+      unsplashImageModal = document.getElementsByClassName("unsplash-image-modal");
       for (let l = 0; l < unsplashImageModal.length; l++) {
-        unsplashImageModal[l].style.backgroundImage = "url('https://source.unsplash.com/" + data.results[idCard-1].id + "/1600x900')";
+        if (unsplashImageModal[l]) {
+          unsplashImageModal[l].style.backgroundImage = "url('https://source.unsplash.com/" + data.results[idCard - 1].id + "/1600x900')";
+        }
       }
     });
 }
@@ -156,7 +170,7 @@ function deletePost() {
   }
   fetch("http://localhost:3000/posts/" + idCard, deleteMethod)
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => console.log("delete method"))
     .catch(error => console.log(error))
 
 }
@@ -175,7 +189,7 @@ function editPost() {
   }
   fetch("http://localhost:3000/posts/" + idCard, putMethod)
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => console.log("put method"))
     .catch(error => console.log(error));
 }
 
@@ -203,11 +217,12 @@ function showModal(modal) {
   myModal.show();
 }
 
-
-
-/* let ranking = JSON.parse(localStorage.getItem('puntuation'));
-const user1 = localStorage.getItem("username");
-
-
-      localStorage.setItem("puntuation", JSON.stringify(ranking))
-      localStorage.setItem("puntuation", JSON.stringify([{username: chooseUsernameInput.value, puntuation: responseTime}])) */
+function changeNameButtonComments() {
+  if (counterBtnComments == true) {
+    viewComments.innerText = "View less";
+    counterBtnComments = false;
+  } else {
+    viewComments.innerText = "View comments";
+    counterBtnComments = true;
+  }
+}
