@@ -98,7 +98,7 @@ function showModalApi(event) {
     .then((response) => response.json())
     .then((data) => {
       for (let x = 0; x < data.length; x++) {
-        if (data[x].id === userId) {
+        if (data[x].id === idCard) {  // era userId
           userData[0].innerHTML = '<small>' + data[x].username + '</small>';
           userData[1].innerHTML = '<small>' + data[x].email + '</small>';
         }
