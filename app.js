@@ -135,6 +135,14 @@ function showModalApi(event) {
         }
       }
     })
+
+    fetch("https://api.unsplash.com/search/photos?query=forest,mountains&orientation=landscape&per_page=9&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
+    .then((response) => response.json())
+    .then((data) => {
+      for (let l = 0; l < unsplashImageModal.length; l++) {
+        unsplashImageModal[l].style.backgroundImage = "url('https://source.unsplash.com/" + data.results[idCard-1].id + "/1600x900')";
+      }
+    });
 }
 
 let allButtonsValue;
