@@ -17,26 +17,27 @@ const formControlTextareaTwo = document.getElementById("formControlTextareaTwo")
 const editButton = document.getElementById("editButton");
 const deleteButton = document.getElementById("deleteButton");
 const divCardContainer = document.getElementsByClassName("div-card-container");
+let allButtons = document.getElementsByClassName("all-buttons");
+let counterPhotos;
 let idCard;
 
 gridParentContainer.addEventListener('click', showModalApi, false);
 editButton.addEventListener('click', editPost);
 deleteButton.addEventListener('click', deletePost);
-document.addEventListener("DOMContentLoaded", loadPhotos);
 
 fetch("http://localhost:3000/posts")
   .then((response) => response.json())
   .then((data) => {
-    const allButtons = document.getElementsByClassName("all-buttons")
     for (let i = 0; i < data.length; i++) {
+      if(titlePost[i]){
       titlePost[i].innerText = data[i].title;
       bodyPost[i].innerText = data[i].body.substring(0, 85) + '...';
       if (allButtons[i]) {
         allButtons[i].setAttribute("id", data[i].id);
       }
     }
+  }
   })
-
 
 fetch("https://api.unsplash.com/search/photos?query=national-geographic&per_page=9&color=blue&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
   .then((response) => response.json())
@@ -44,17 +45,18 @@ fetch("https://api.unsplash.com/search/photos?query=national-geographic&per_page
     unsplashImageNav.style.backgroundImage = "url('https://source.unsplash.com/9wg5jCEPBsw/1600x900')";
   });
 
-function loadPhotos() {
-  fetch("https://api.unsplash.com/search/photos?query=forest,mountains&orientation=landscape&per_page=9&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
+  fetch("https://api.unsplash.com/search/photos?query=forest,mountains&orientation=landscape&per_page=3000&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
     .then((response) => response.json())
     .then((data) => {
+      allButtons = document.getElementsByClassName("all-buttons");
       for (let i = 0; i < 100; i++) {
-        if (unsplashImage[i]) {
-          unsplashImage[i].style.backgroundImage = "url('https://source.unsplash.com/" + data.results[i].id + "/1600x900')";
+        if(allButtons[i]){
+            counterPhotos = Number(allButtons[i].getAttribute('id'))
+            unsplashImage[i].style.backgroundImage = "url('https://source.unsplash.com/" + data.results[counterPhotos-1].id + "/1600x900')";
+          }
         }
       }
-    })
-}
+    )
 
 function showModalApi(event) {
   idCard = Number(event.target.id);
@@ -133,14 +135,6 @@ function showModalApi(event) {
         }
       }
     })
-
-  fetch("https://api.unsplash.com/search/photos?query=forest,mountains&orientation=landscape&per_page=9&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
-    .then((response) => response.json())
-    .then((data) => {
-      for (let l = 0; l < unsplashImageModal.length; l++) {
-        unsplashImageModal[l].style.backgroundImage = "url('https://source.unsplash.com/" + data.results[idCard].id + "/1600x900')";
-      }
-    });
 }
 
 let allButtonsValue;
@@ -200,3 +194,12 @@ function showModal(modal) {
   let myModal = new bootstrap.Modal(mid);
   myModal.show();
 }
+
+
+
+/* let ranking = JSON.parse(localStorage.getItem('puntuation'));
+const user1 = localStorage.getItem("username");
+
+
+      localStorage.setItem("puntuation", JSON.stringify(ranking))
+      localStorage.setItem("puntuation", JSON.stringify([{username: chooseUsernameInput.value, puntuation: responseTime}])) */
