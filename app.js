@@ -27,36 +27,34 @@ document.addEventListener("DOMContentLoaded", loadPhotos);
 fetch("http://localhost:3000/posts")
   .then((response) => response.json())
   .then((data) => {
+    const allButtons = document.getElementsByClassName("all-buttons")
     for (let i = 0; i < data.length; i++) {
       titlePost[i].innerText = data[i].title;
       bodyPost[i].innerText = data[i].body.substring(0, 85) + '...';
+      if (allButtons[i]) {
+        allButtons[i].setAttribute("id", data[i].id);
+      }
     }
   })
 
-/* const controller = new AbortController();
-const signal = controller.signal;
-const abortVariable = {
-  method: 'get',
-  signal: signal,
-} */
-
-function loadPhotos() {
-  fetch("https://api.unsplash.com/search/photos?query=forest,mountains&orientation=landscape&per_page=9&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
-    .then((response) => response.json())
-    .then((data) => {
-      for (let i = 0; i < 100; i++) {
-        if(unsplashImage[i]){
-          unsplashImage[i].style.backgroundImage = "url('https://source.unsplash.com/" + data.results[i].id + "/1600x900')";
-        }
-      }
-    })
-}
 
 fetch("https://api.unsplash.com/search/photos?query=national-geographic&per_page=9&color=blue&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
   .then((response) => response.json())
   .then((data) => {
     unsplashImageNav.style.backgroundImage = "url('https://source.unsplash.com/9wg5jCEPBsw/1600x900')";
   });
+
+function loadPhotos() {
+  fetch("https://api.unsplash.com/search/photos?query=forest,mountains&orientation=landscape&per_page=9&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
+    .then((response) => response.json())
+    .then((data) => {
+      for (let i = 0; i < 100; i++) {
+        if (unsplashImage[i]) {
+          unsplashImage[i].style.backgroundImage = "url('https://source.unsplash.com/" + data.results[i].id + "/1600x900')";
+        }
+      }
+    })
+}
 
 function showModalApi(event) {
   idCard = Number(event.target.id);
@@ -72,11 +70,15 @@ function showModalApi(event) {
   fetch("http://localhost:3000/posts")
     .then((response) => response.json())
     .then((data) => {
-      modalTitle.innerText = data[idCard].title;
-      infoModalBody.innerText = data[idCard].body;
-      userId = data[idCard].userId;
-      formControlTextareaOne.value = data[idCard].title;
-      formControlTextareaTwo.value = data[idCard].body;
+      for (let x = 0; x < data.length; x++) {
+        if (data[x].id === idCard) {
+          modalTitle.innerText = data[x].title;
+          infoModalBody.innerText = data[x].body;
+          userId = data[x].userId;
+          formControlTextareaOne.value = data[x].title;
+          formControlTextareaTwo.value = data[x].body;
+        }
+      }
     })
 
   fetch("http://localhost:3000/users")
@@ -95,7 +97,7 @@ function showModalApi(event) {
     .then((data) => {
       let z = 0;
       for (let x = 0; x < data.length; x++) {
-        if (data[x].postId === idCard + 1 && commentCounter < 2) {
+        if (data[x].postId === idCard && commentCounter < 2) {
           const paragraphCommentName = document.createElement('p');
           paragraphCommentName.classList.add('my-0', 'fs-6', 'fw-bold', 'comment-data', 'border-top', 'mt-3', 'pt-3');
           commentContainer.insertBefore(paragraphCommentName, collapseCommentsContainer);
@@ -112,7 +114,7 @@ function showModalApi(event) {
             commentData[z + 1].innerText = data[x].email;
             commentData[z + 2].innerText = data[x].body;
           }
-        } else if (data[x].postId === idCard + 1 && commentCounter >= 2) {
+        } else if (data[x].postId === idCard && commentCounter >= 2) {
           const paragraphCommentName = document.createElement('p');
           paragraphCommentName.classList.add('my-0', 'fs-6', 'fw-bold', 'comment-data', 'border-top', 'mt-3', 'pt-3');
           collapseComments.appendChild(paragraphCommentName);
@@ -141,8 +143,9 @@ function showModalApi(event) {
     });
 }
 
+let allButtonsValue;
+
 function deletePost() {
-  idCard++;
   const deleteMethod = {
     method: 'DELETE',
     headers: {
@@ -154,22 +157,9 @@ function deletePost() {
     .then(data => console.log(data))
     .catch(error => console.log(error))
 
-  /*   controller.abort(); */
-
-    idCard--;
-  fetch("https://api.unsplash.com/search/photos?query=forest,mountains&orientation=landscape&per_page=9&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
-    .then((response) => response.json())
-    .then((data) => {
-      for (idCard; idCard < data.length; idCard++) {
-        /* if(unsplashImage[idCard]){ */
-          /* unsplashImage[idCard].style.removeProperty('backgroundImage'); */
-          unsplashImage[idCard].style.backgroundImage = "url('https://source.unsplash.com/" + data.results[idCard+1].id + "/1600x900')";
-      }
-    })
 }
 
 function editPost() {
-  idCard++;
   const postModify = {
     title: formControlTextareaOne.value,
     body: formControlTextareaTwo.value
@@ -184,7 +174,7 @@ function editPost() {
   fetch("http://localhost:3000/posts/" + idCard, putMethod)
     .then(response => response.json())
     .then(data => console.log(data))
-    .catch(err => console.log(err));
+    .catch(error => console.log(error));
 }
 
 const toastTrigger = document.getElementById('liveToastBtn')
