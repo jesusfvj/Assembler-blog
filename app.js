@@ -16,11 +16,13 @@ const formControlTextareaOne = document.getElementById("formControlTextareaOne")
 const formControlTextareaTwo = document.getElementById("formControlTextareaTwo");
 const editButton = document.getElementById("editButton");
 const deleteButton = document.getElementById("deleteButton");
+const divCardContainer = document.getElementsByClassName("div-card-container");
 let idCard;
 
 gridParentContainer.addEventListener('click', showModalApi, false);
 editButton.addEventListener('click', editPost);
 deleteButton.addEventListener('click', deletePost);
+document.addEventListener("DOMContentLoaded", loadPhotos);
 
 fetch("http://localhost:3000/posts")
   .then((response) => response.json())
@@ -31,13 +33,24 @@ fetch("http://localhost:3000/posts")
     }
   })
 
-fetch("https://api.unsplash.com/search/photos?query=forest,mountains&orientation=landscape&per_page=9&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
-  .then((response) => response.json())
-  .then((data) => {
-    for (let i = 0; i < 100; i++) {
-      unsplashImage[i].style.backgroundImage = "url('https://source.unsplash.com/" + data.results[i].id + "/1600x900')";
-    }
-  })
+/* const controller = new AbortController();
+const signal = controller.signal;
+const abortVariable = {
+  method: 'get',
+  signal: signal,
+} */
+
+function loadPhotos() {
+  fetch("https://api.unsplash.com/search/photos?query=forest,mountains&orientation=landscape&per_page=9&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
+    .then((response) => response.json())
+    .then((data) => {
+      for (let i = 0; i < 100; i++) {
+        if(unsplashImage[i]){
+          unsplashImage[i].style.backgroundImage = "url('https://source.unsplash.com/" + data.results[i].id + "/1600x900')";
+        }
+      }
+    })
+}
 
 fetch("https://api.unsplash.com/search/photos?query=national-geographic&per_page=9&color=blue&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
   .then((response) => response.json())
@@ -129,15 +142,6 @@ function showModalApi(event) {
 }
 
 function deletePost() {
-  const allButtons = document.getElementsByClassName("all-buttons")
-  for (idCard; idCard < allButtons.length; idCard++) {
-    let allButtonsValue = Number(allButtons[idCard].getAttribute('id'));
-    allButtons[idCard].removeAttribute('id');
-    allButtonsValue++;
-    /* let allButtonsValueString = allButtonsValue.toString(); */
-    allButtons[idCard].setAttribute("id", "allButtonsValue");
-  }
-
   idCard++;
   const deleteMethod = {
     method: 'DELETE',
@@ -148,7 +152,20 @@ function deletePost() {
   fetch("http://localhost:3000/posts/" + idCard, deleteMethod)
     .then(response => response.json())
     .then(data => console.log(data))
-    .catch(err => console.log(err))
+    .catch(error => console.log(error))
+
+  /*   controller.abort(); */
+
+    idCard--;
+  fetch("https://api.unsplash.com/search/photos?query=forest,mountains&orientation=landscape&per_page=9&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
+    .then((response) => response.json())
+    .then((data) => {
+      for (idCard; idCard < data.length; idCard++) {
+        /* if(unsplashImage[idCard]){ */
+          /* unsplashImage[idCard].style.removeProperty('backgroundImage'); */
+          unsplashImage[idCard].style.backgroundImage = "url('https://source.unsplash.com/" + data.results[idCard+1].id + "/1600x900')";
+      }
+    })
 }
 
 function editPost() {
