@@ -73,7 +73,7 @@
                         </div>
                         <div>
                             <button type="button" class="btn btn-primary showmodal" data-show-modal="modalEdit"
-                            data-toggle="modal" data-bs-target="#modalEdit" data-bs-dismiss="modal">Edit</button>
+                                data-toggle="modal" data-bs-target="#modalEdit" data-bs-dismiss="modal">Edit</button>
                             <button type="button" class="btn btn-primary showmodal" data-show-modal="infoModal"
                                 data-toggle="modal" data-bs-target="#infoModal" data-bs-dismiss="modal">Delete</button>
                         </div>
@@ -99,17 +99,17 @@
                     <div class="modal-body">
                         <!-- <p style="padding: 2rem 2rem 1rem 2rem">Are you sure you want to delete this post?<br>Once the
                             post is deleted it won't be retrievable.</p> -->
-                            <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Title</label>
-                                <textarea class="form-control" id="formControlTextareaOne" rows="1"></textarea>
-                              </div>
-                              <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Post</label>
-                                <textarea class="form-control" id="formControlTextareaTwo" rows="6"></textarea>
-                              </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Title</label>
+                            <textarea class="form-control" id="formControlTextareaOne" rows="1"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Post</label>
+                            <textarea class="form-control" id="formControlTextareaTwo" rows="6"></textarea>
+                        </div>
                     </div>
                     <div class="modal-footer justify-content-center">
-                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"
+                        <button id="editButton" type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"
                             style="width: 100%">Edit</button>
                     </div>
                 </div>
@@ -135,68 +135,82 @@
                             post is deleted it won't be retrievable.</p>
                     </div>
                     <div class="modal-footer justify-content-center">
-                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"
+                        <button id="deleteButton" type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"
                             style="width: 100%">Delete</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="gridParentContainer" class="container text-center" style="width: 100%;">
+        <div id="gridParentContainer" class="container text-center container-fluid" style="width: 100%;">
 
-            <div class="row" style="height: 40rem;">
-                <div class="col">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
                         <div class="unsplash-image bg-image card shadow-1-strong"
-                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 34.7rem;">
+                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 30rem;">
                             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
             background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
-                                <div class="card-body text-white">
-                                    <h5 class="card-title text-start display-6">Card title 1</h5>
-                                    <p class="card-text text-start h6 lh-lg my-5 fw-lighter">Lorem ipsum dolor sit amet,
-                                        consectetur adipisicing elit. Sequi, labore?</p>
-                                    <div class="text-start">
+                                <div class="card-body text-white text-start d-flex flex-column justify-content-between"
+                                    style="height: 100%;">
+                                    <div>
+                                        <h5 class="card-title text-start h2">Card title 1</h5>
+                                        <p class="card-text text-start h6 lh-lg my-5 fw-lighter">Lorem ipsum dolor sit
+                                            amet,
+                                            consectetur adipisicing elit. Sequi, labore?</p>
+                                    </div>
+                                    <div>
                                         <button id="0" type="button" class="btn btn-outline-light start"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal">Read more</button>
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                            style="width: 100%;">Read more</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
                         <div class="unsplash-image bg-image card shadow-1-strong"
-                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 34.7rem;">
+                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 30rem;">
                             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
             background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
-                                <div class="card-body text-white">
-                                    <h5 class="card-title text-start display-6">Card title 1</h5>
-                                    <p class="card-text text-start h6 lh-lg my-5 fw-lighter">Lorem ipsum dolor sit amet,
-                                        consectetur adipisicing elit. Sequi, labore?</p>
-                                    <div class="text-start d-flex flex-column justify-content-flex-end align-items-flex-end"
-                                        style="margin-top: 18rem">
+                                <div class="card-body text-white text-start d-flex flex-column justify-content-between"
+                                    style="height: 100%;">
+                                    <div>
+                                        <h5 class="card-title text-start h2">Card title 1</h5>
+                                        <p class="card-text text-start h6 lh-lg my-5 fw-lighter">Lorem ipsum dolor sit
+                                            amet,
+                                            consectetur adipisicing elit. Sequi, labore?</p>
+                                    </div>
+                                    <div>
                                         <button id="1" type="button" class="btn btn-outline-light start"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal">Read more</button>
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                            style="width: 100%;">Read more</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
                         <div class="unsplash-image bg-image card shadow-1-strong"
-                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 34.7rem;">
+                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 30rem;">
                             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
             background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
-                                <div class="card-body text-white">
-                                    <h5 class="card-title text-start display-6">Card title 1</h5>
-                                    <p class="card-text text-start h6 lh-lg my-5 fw-lighter">Lorem ipsum dolor sit amet,
-                                        consectetur adipisicing elit. Sequi, labore?</p>
-                                    <div class="text-start">
+                                <div class="card-body text-white text-start d-flex flex-column justify-content-between"
+                                    style="height: 100%;">
+                                    <div>
+                                        <h5 class="card-title text-start h2">Card title 1</h5>
+                                        <p class="card-text text-start h6 lh-lg my-5 fw-lighter">Lorem ipsum dolor sit
+                                            amet,
+                                            consectetur adipisicing elit. Sequi, labore?</p>
+                                    </div>
+                                    <div>
                                         <button id="2" type="button" class="btn btn-outline-light start"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal">Read more</button>
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                            style="width: 100%;">Read more</button>
                                     </div>
                                 </div>
                             </div>
@@ -204,58 +218,73 @@
                     </div>
                 </div>
             </div>
-            <div class="row" style="height: 40rem;">
-                <div class="col">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
                         <div class="unsplash-image bg-image card shadow-1-strong"
-                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 34.7rem;">
+                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 30rem;">
                             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
-            background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
-                                <div class="card-body text-white">
-                                    <h5 class="card-title text-start display-6">Card title 1</h5>
-                                    <p class="card-text text-start h6 lh-lg my-5 fw-lighter">Lorem ipsum dolor sit amet,
-                                        consectetur adipisicing elit. Sequi, labore?</p>
-                                    <div class="text-start">
+        background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
+                                <div class="card-body text-white text-start d-flex flex-column justify-content-between"
+                                    style="height: 100%;">
+                                    <div>
+                                        <h5 class="card-title text-start h2">Card title 1</h5>
+                                        <p class="card-text text-start h6 lh-lg my-5 fw-lighter">Lorem ipsum dolor sit
+                                            amet,
+                                            consectetur adipisicing elit. Sequi, labore?</p>
+                                    </div>
+                                    <div>
                                         <button id="3" type="button" class="btn btn-outline-light start"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal">Read more</button>
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                            style="width: 100%;">Read more</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
                         <div class="unsplash-image bg-image card shadow-1-strong"
-                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 34.7rem;">
+                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 30rem;">
                             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
-            background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
-                                <div class="card-body text-white">
-                                    <h5 class="card-title text-start display-6">Card title 1</h5>
-                                    <p class="card-text text-start h6 lh-lg my-5 fw-lighter">Lorem ipsum dolor sit amet,
-                                        consectetur adipisicing elit. Sequi, labore?</p>
-                                    <div class="text-start">
+        background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
+                                <div class="card-body text-white text-start d-flex flex-column justify-content-between"
+                                    style="height: 100%;">
+                                    <div>
+                                        <h5 class="card-title text-start h2">Card title 1</h5>
+                                        <p class="card-text text-start h6 lh-lg my-5 fw-lighter">Lorem ipsum dolor sit
+                                            amet,
+                                            consectetur adipisicing elit. Sequi, labore?</p>
+                                    </div>
+                                    <div>
                                         <button id="4" type="button" class="btn btn-outline-light start"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal">Read more</button>
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                            style="width: 100%;">Read more</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
                         <div class="unsplash-image bg-image card shadow-1-strong"
-                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 34.7rem;">
+                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 30rem;">
                             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
-            background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
-                                <div class="card-body text-white">
-                                    <h5 class="card-title text-start display-6">Card title 1</h5>
-                                    <p class="card-text text-start h6 lh-lg my-5 fw-lighter">Lorem ipsum dolor sit amet,
-                                        consectetur adipisicing elit. Sequi, labore?</p>
-                                    <div class="text-start">
+        background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
+                                <div class="card-body text-white text-start d-flex flex-column justify-content-between"
+                                    style="height: 100%;">
+                                    <div>
+                                        <h5 class="card-title text-start h2">Card title 1</h5>
+                                        <p class="card-text text-start h6 lh-lg my-5 fw-lighter">Lorem ipsum dolor sit
+                                            amet,
+                                            consectetur adipisicing elit. Sequi, labore?</p>
+                                    </div>
+                                    <div>
                                         <button id="5" type="button" class="btn btn-outline-light start"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal">Read more</button>
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                            style="width: 100%;">Read more</button>
                                     </div>
                                 </div>
                             </div>
@@ -263,58 +292,73 @@
                     </div>
                 </div>
             </div>
-            <div class="row" style="height: 40rem;">
-                <div class="col">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
                         <div class="unsplash-image bg-image card shadow-1-strong"
-                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 34.7rem;">
+                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 30rem;">
                             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
-            background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
-                                <div class="card-body text-white">
-                                    <h5 class="card-title text-start display-6">Card title 1</h5>
-                                    <p class="card-text text-start h6 lh-lg my-5 fw-lighter">Lorem ipsum dolor sit amet,
-                                        consectetur adipisicing elit. Sequi, labore?</p>
-                                    <div class="text-start">
+    background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
+                                <div class="card-body text-white text-start d-flex flex-column justify-content-between"
+                                    style="height: 100%;">
+                                    <div>
+                                        <h5 class="card-title text-start h2">Card title 1</h5>
+                                        <p class="card-text text-start h6 lh-lg my-5 fw-lighter">Lorem ipsum dolor sit
+                                            amet,
+                                            consectetur adipisicing elit. Sequi, labore?</p>
+                                    </div>
+                                    <div>
                                         <button id="6" type="button" class="btn btn-outline-light start"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal">Read more</button>
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                            style="width: 100%;">Read more</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
                         <div class="unsplash-image bg-image card shadow-1-strong"
-                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 34.7rem;">
+                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 30rem;">
                             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
-            background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
-                                <div class="card-body text-white">
-                                    <h5 class="card-title text-start display-6">Card title 1</h5>
-                                    <p class="card-text text-start h6 lh-lg my-5 fw-lighter">Lorem ipsum dolor sit amet,
-                                        consectetur adipisicing elit. Sequi, labore?</p>
-                                    <div class="text-start">
+    background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
+                                <div class="card-body text-white text-start d-flex flex-column justify-content-between"
+                                    style="height: 100%;">
+                                    <div>
+                                        <h5 class="card-title text-start h2">Card title 1</h5>
+                                        <p class="card-text text-start h6 lh-lg my-5 fw-lighter">Lorem ipsum dolor sit
+                                            amet,
+                                            consectetur adipisicing elit. Sequi, labore?</p>
+                                    </div>
+                                    <div>
                                         <button id="7" type="button" class="btn btn-outline-light start"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal">Read more</button>
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                            style="width: 100%;">Read more</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
                         <div class="unsplash-image bg-image card shadow-1-strong"
-                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 34.7rem;">
-                            <div class="mask mask-custom"
-                                style="height: 100%; width: 100%; backdrop-filter: blur(2px); background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
-                                <div class="card-body text-white">
-                                    <h5 class="card-title text-start display-6">Card title 1</h5>
-                                    <p class="card-text text-start h6 lh-lg my-5 fw-lighter">Lorem ipsum dolor sit amet,
-                                        consectetur adipisicing elit. Sequi, labore?</p>
-                                    <div class="text-start">
+                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 30rem;">
+                            <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
+    background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
+                                <div class="card-body text-white text-start d-flex flex-column justify-content-between"
+                                    style="height: 100%;">
+                                    <div>
+                                        <h5 class="card-title text-start h2">Card title 1</h5>
+                                        <p class="card-text text-start h6 lh-lg my-5 fw-lighter">Lorem ipsum dolor sit
+                                            amet,
+                                            consectetur adipisicing elit. Sequi, labore?</p>
+                                    </div>
+                                    <div>
                                         <button id="8" type="button" class="btn btn-outline-light start"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal">Read more</button>
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                            style="width: 100%;">Read more</button>
                                     </div>
                                 </div>
                             </div>
@@ -322,7 +366,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </main>
     <footer></footer>
 </body>
