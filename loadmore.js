@@ -1,36 +1,89 @@
-const loadButton = document.getElementById("load-button");
-const cardContainer = document.getElementById("gridParentContainer");
-const cardCountElem = document.getElementById("card-count");
-const cardTotalElem = document.getElementById("card-total"); 
+const loadButton = document.getElementById("loadButton");
+const cardCount = document.getElementById("cardCount");
+const cardTotal = document.getElementById("cardTotal"); 
 const cardLimit = 100;
-const cardIncrease = 12;
+const cardIncrease = 3;
 const pageCount = Math.ceil((cardLimit / cardIncrease));
 let currentPage = 2;
 
 let cardDiv = `
-<div class="card">
-<div class="unsplash-image bg-image card shadow-1-strong"
-	style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 30rem;">
-	<div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
-background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
-		<div class="card-body text-white text-start d-flex flex-column justify-content-between"
-			style="height: 100%;">
-			<div>
-				<h5 class="card-title text-start h2"></h5>
-				<p class="card-text text-start h6 lh-lg my-5 fw-lighter"></p>
-			</div>
-			<div>
-				<button type="button" class="btn btn-outline-light start all-buttons"
-					data-bs-toggle="modal" data-bs-target="#exampleModal"
-					style="width: 100%;">Read more</button>
-			</div>
-		</div>
-	</div>
-</div>
-</div>
+<div class="row">
+                <div class="div-card-container col-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
+                    <div class="card">
+                        <div class="unsplash-image bg-image card shadow-1-strong"
+                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 30rem;">
+                            <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
+            background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
+                                <div class="card-body text-white text-start d-flex flex-column justify-content-between"
+                                    style="height: 100%;">
+                                    <div>
+                                        <h5 class="card-title text-start h2">Card title 1</h5>
+                                        <p class="card-text text-start h6 lh-lg my-5 fw-lighter">Lorem ipsum dolor sit
+                                            amet,
+                                            consectetur adipisicing elit. Sequi, labore?</p>
+                                    </div>
+                                    <div>
+                                        <button id="0" type="button" class="btn btn-outline-light start all-buttons"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                            style="width: 100%;">Read more</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="div-card-container col-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
+                    <div class="card">
+                        <div class="unsplash-image bg-image card shadow-1-strong"
+                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 30rem;">
+                            <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
+            background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
+                                <div class="card-body text-white text-start d-flex flex-column justify-content-between"
+                                    style="height: 100%;">
+                                    <div>
+                                        <h5 class="card-title text-start h2">Card title 1</h5>
+                                        <p class="card-text text-start h6 lh-lg my-5 fw-lighter">Lorem ipsum dolor sit
+                                            amet,
+                                            consectetur adipisicing elit. Sequi, labore?</p>
+                                    </div>
+                                    <div>
+                                        <button id="1" type="button" class="btn btn-outline-light start all-buttons"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                            style="width: 100%;">Read more</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="div-card-container col-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
+                    <div class="card">
+                        <div class="unsplash-image bg-image card shadow-1-strong"
+                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 30rem;">
+                            <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
+            background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
+                                <div class="card-body text-white text-start d-flex flex-column justify-content-between"
+                                    style="height: 100%;">
+                                    <div>
+                                        <h5 class="card-title text-start h2">Card title 1</h5>
+                                        <p class="card-text text-start h6 lh-lg my-5 fw-lighter">Lorem ipsum dolor sit
+                                            amet,
+                                            consectetur adipisicing elit. Sequi, labore?</p>
+                                    </div>
+                                    <div>
+                                        <button id="2" type="button" class="btn btn-outline-light start all-buttons"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                            style="width: 100%;">Read more</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 `;
 
-cardTotalElem.innerHTML = cardLimit;
+cardTotal.innerHTML = cardLimit;
 
 
 const handleButtonStatus = () => {
@@ -44,7 +97,8 @@ const createCard = (index) => {
   const card = document.createElement("div");
   card.className = "card";
   card.innerHTML = index;
-  cardContainer.appendChild(card);
+  gridParentContainer.insertBefore(card, loadButton);
+  card.innerHTML = cardDiv;
 };
 
 const addCards = (pageIndex) => {
@@ -56,7 +110,7 @@ const addCards = (pageIndex) => {
   const endRange =
     pageIndex * cardIncrease > cardLimit ? cardLimit : pageIndex * cardIncrease;
   
-  cardCountElem.innerHTML = endRange;
+  cardCount.innerHTML = endRange;
 
   for (let i = startRange + 1; i <= endRange; i++) {
     createCard(i);
@@ -70,7 +124,7 @@ window.onload = function () {
   });
 };
 
-/*cardTotalElem.innerHTML = cardLimit;
+/*cardTotal.innerHTML = cardLimit;
 
 loadButton.addEventListener("click", loadMore);
 
@@ -88,7 +142,7 @@ function loadMore(){
 	console.log("hola")
 	const createCard = (index) => {
 		card.innerHTML = index;
-		cardContainer.appendChild(cardDiv);
+		gridParentContainer.appendChild(cardDiv);
 	  };
 
 	  const addCards = (pageIndex) => {
@@ -100,7 +154,7 @@ function loadMore(){
 		const endRange =
 		  pageIndex * cardIncrease > cardLimit ? cardLimit : pageIndex * cardIncrease;
 		 
-		cardCountElem.innerHTML = endRange;
+		cardCount.innerHTML = endRange;
 	   
 		for (let i = startRange + 1; i <= endRange; i++) {
 		  createCard(i);
