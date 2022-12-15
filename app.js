@@ -136,7 +136,7 @@ function showModalApi(event) {
     .then((response) => response.json())
     .then((data) => {
       for (let l = 0; l < unsplashImageModal.length; l++) {
-        unsplashImageModal[l].style.backgroundImage = "url('https://source.unsplash.com/" + data.results[idCard].id + "/1600x900')";
+        unsplashImageModal[l].style.backgroundImage = "url('https://source.unsplash.com/" + data.results[idCard] + "/1600x900')"; //id antes de + "/1600x900')"
       }
     });
 }
