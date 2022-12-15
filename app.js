@@ -129,6 +129,15 @@ function showModalApi(event) {
 }
 
 function deletePost() {
+  const allButtons = document.getElementsByClassName("all-buttons")
+  for (idCard; idCard < allButtons.length; idCard++) {
+    let allButtonsValue = Number(allButtons[idCard].getAttribute('id'));
+    allButtons[idCard].removeAttribute('id');
+    allButtonsValue++;
+    /* let allButtonsValueString = allButtonsValue.toString(); */
+    allButtons[idCard].setAttribute("id", "allButtonsValue");
+  }
+
   idCard++;
   const deleteMethod = {
     method: 'DELETE',
@@ -178,6 +187,7 @@ Array.from(document.getElementsByClassName('showmodal')).forEach((e) => {
     }
   });
 });
+
 function showModal(modal) {
   const mid = document.getElementById(modal);
   let myModal = new bootstrap.Modal(mid);
