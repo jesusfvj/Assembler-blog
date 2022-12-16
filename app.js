@@ -237,15 +237,6 @@ function showModalApi(event) {
       .catch(error => console.log(error));
   }
 
-  const toastTrigger = document.getElementById('liveToastBtn')
-  const toastLiveExample = document.getElementById('liveToast')
-  if (toastTrigger) {
-    toastTrigger.addEventListener('click', () => {
-      const toast = new bootstrap.Toast(toastLiveExample)
-      toast.show()
-    })
-  }
-
   Array.from(document.getElementsByClassName('showmodal')).forEach((e) => {
     e.addEventListener('click', function (element) {
       element.preventDefault();
