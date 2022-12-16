@@ -12,7 +12,7 @@ let cardDiv = `
                 <div class="div-card-container col-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
                         <div class="unsplash-image bg-image card shadow-1-strong"
-                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 30rem;">
+                            style="background-image: url('https://mdbootstrap.com/img/new/slides/121.jpg'); background-size: cover; background-position: center; height: 30rem;">
                             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
             background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
                                 <div class="card-body text-white text-start d-flex flex-column justify-content-between"
@@ -36,7 +36,7 @@ let cardDiv = `
                 <div class="div-card-container col-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
                         <div class="unsplash-image bg-image card shadow-1-strong"
-                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 30rem;">
+                            style="background-image: url('https://mdbootstrap.com/img/new/slides/121.jpg'); background-size: cover; background-position: center; height: 30rem;">
                             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
             background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
                                 <div class="card-body text-white text-start d-flex flex-column justify-content-between"
@@ -60,7 +60,7 @@ let cardDiv = `
                 <div class="div-card-container col-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
                         <div class="unsplash-image bg-image card shadow-1-strong"
-                            style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center; height: 30rem;">
+                            style="background-image: url('https://mdbootstrap.com/img/new/slides/121.jpg'); background-size: cover; background-position: center; height: 30rem;">
                             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
             background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
                                 <div class="card-body text-white text-start d-flex flex-column justify-content-between"
