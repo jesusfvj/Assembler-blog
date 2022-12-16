@@ -99,8 +99,7 @@ loadButton.addEventListener('click', function(){
 });
 
 function updatePostsData() {
-   /*  counterPositionPage+=3;
-    sessionStorage.setItem("cardIncrease", counterPositionPage); */
+
     cardIncrease = 3;
     cardsCounter += 9;
     if(cardsCounter<cardLimit){
@@ -112,13 +111,7 @@ function updatePostsData() {
     fetchPosts();
     fetchImages();
 }
-/* 
-cardIncrease = sessionStorage.getItem("cardIncrease");
-if (cardIncrease == null) {
-    cardIncrease = 0;
-} else {
-    cardIncrease = sessionStorage.getItem("cardIncrease");
-} */
+
 
 cardLimit = localStorage.getItem("cardLimit");
 if (cardLimit == null) {
