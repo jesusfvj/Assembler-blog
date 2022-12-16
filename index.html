@@ -25,13 +25,20 @@
 <body>
     <header>
         <nav class="unsplash-image-nav bg-image card shadow-1-strong d-flex justify-content-center align-items-center rounded-0"
-            style="height: 100vh; background-size: cover; background-position: center;">
+            style="height: 110vh; background-size: cover; background-position: center;">
             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(4px);
             background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
                 <div class="d-flex flex-column justify-content-center align-items-center h-100">
                     <h1 class="text-light fw-lighter display-1" style="letter-spacing: 1rem;">NATURE PEACE</h1>
                     <p class="text-white fw-lighter h4" style="letter-spacing: 0.75rem;">A blog to make you breath again
                     </p>
+                </div>
+                <div class="d-flex flex-row justify-content-around text-white fw-lighter" style="margin-top: -3rem;">
+                    <p class="cursor"><small>Blog</small></p>
+                    <p class="cursor"><small>Posts</small></p>
+                    <p class="cursor"><small>Best getways</small></p>
+                    <p class="cursor"><small>Hidden gems</small></p>
+                    <p class="cursor"><small>Yoga & retreats</small></p>
                 </div>
             </div>
         </nav>
@@ -63,8 +70,9 @@
                             </div>
                             <button id="buttonComments" type="button" class="btn btn-primary mr-auto comment-button"
                                 data-bs-toggle="collapse" data-bs-target="#collapseCommentsId" aria-expanded="false"
-                                aria-controls="collapseCommentsId" style="margin-top:2rem;"><small id="viewComments">View
-                                    more comments</small></button>
+                                aria-controls="collapseCommentsId" style="margin-top:2rem;"><small
+                                    id="viewComments">View
+                                    comments</small></button>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
@@ -72,14 +80,33 @@
                             <p class="user-data text-start my-0 fs-6 text-muted"></p>
                             <p class="user-data text-start my-0 fs-6 text-muted"></p>
                         </div>
-                        <div>
+                        <div class="d-flex flex-row">
+                            <div style="margin: 0.3rem 1rem 0 0; padding-top: 0.1rem;"><span
+                                    class="text-muted like-heart">0</span><svg id="heartShape"
+                                    xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="turquoise"
+                                    class="bi bi-suit-heart-fill" viewBox="0 0 16 16" style="margin-left: 0.5rem;">
+                                    <path
+                                        d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z" />
+                                </svg></div>
                             <button type="button" class="btn btn-outline-primary showmodal" data-show-modal="modalEdit"
-                                data-toggle="modal" data-bs-target="#modalEdit" data-bs-dismiss="modal"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                  </svg></button>
-                            <button type="button" class="btn btn-primary showmodal" data-show-modal="infoModal"
-                                data-toggle="modal" data-bs-target="#infoModal" data-bs-dismiss="modal">Delete</button>
+                                data-toggle="modal" data-bs-target="#modalEdit" data-bs-dismiss="modal"
+                                style="margin: 0 1rem"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                    fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"
+                                    style="padding-bottom: 0.1rem">
+                                    <path
+                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                    <path fill-rule="evenodd"
+                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                </svg></button>
+                            <button type="button" class="btn btn-outline-danger showmodal" data-show-modal="infoModal"
+                                data-toggle="modal" data-bs-target="#infoModal" data-bs-dismiss="modal"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                                    class="bi bi-file-earmark-x" viewBox="0 0 16 16" style="padding-bottom: 0.1rem">
+                                    <path
+                                        d="M6.854 7.146a.5.5 0 1 0-.708.708L7.293 9l-1.147 1.146a.5.5 0 0 0 .708.708L8 9.707l1.146 1.147a.5.5 0 0 0 .708-.708L8.707 9l1.147-1.146a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146z" />
+                                    <path
+                                        d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+                                </svg></button>
                         </div>
                     </div>
                 </div>
@@ -111,6 +138,32 @@
                             <label for="exampleFormControlTextarea1" class="form-label">Post</label>
                             <textarea class="form-control" id="formControlTextareaTwo" rows="6"></textarea>
                         </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-outline-primary showmodal"
+                            data-show-modal="editConfirmation" data-toggle="modal" data-bs-target="#editConfirmation"
+                            data-bs-dismiss="modal" style="width: 100%">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit confirmation nested Modal -->
+        <div class="modal fade" id="editConfirmation" tabindex="1" aria-labelledby="infoModalLabel" aria-hidden="true"
+            data-bs-backdrop="static">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="unsplash-image-modal bg-image card shadow-1-strong rounded-0"
+                        style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg'); background-size: cover; background-position: center;">
+                        <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(4px);
+                     background: linear-gradient(360deg,  rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
+                            <button type="button" class="btn-close btn-close-white float-end" data-bs-dismiss="modal"
+                                aria-label="Close" style="margin: 0.5rem 0.5rem 0 0;"></button>
+                            <h5 class="modal-title" id="infoModalLabel" style="padding: 2rem 0;"></h5>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <p style="padding: 2rem 2rem 1rem 2rem">Are you sure you want to edit this post?</p>
                     </div>
                     <div class="modal-footer justify-content-center">
                         <button id="editButton" type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"
@@ -148,6 +201,8 @@
 
         <div id="gridParentContainer" class="container text-center container-fluid" style="width: 100%;">
 
+            <h2 class="display-5 text-info fw-lighter" style="padding:0 0 5rem 0; letter-spacing: 0.5rem">find easiness<br>in one of our posts</h2>
+
             <div class="row">
                 <div class="div-card-container col-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
@@ -164,7 +219,7 @@
                                             consectetur adipisicing elit. Sequi, labore?</p>
                                     </div>
                                     <div>
-                                        <button  type="button" class="btn btn-outline-light start all-buttons"
+                                        <button type="button" class="btn btn-outline-light start all-buttons"
                                             data-bs-toggle="modal" data-bs-target="#exampleModal"
                                             style="width: 100%;">Read more</button>
                                     </div>
@@ -188,7 +243,7 @@
                                             consectetur adipisicing elit. Sequi, labore?</p>
                                     </div>
                                     <div>
-                                        <button  type="button" class="btn btn-outline-light start all-buttons"
+                                        <button type="button" class="btn btn-outline-light start all-buttons"
                                             data-bs-toggle="modal" data-bs-target="#exampleModal"
                                             style="width: 100%;">Read more</button>
                                     </div>
@@ -212,7 +267,7 @@
                                             consectetur adipisicing elit. Sequi, labore?</p>
                                     </div>
                                     <div>
-                                        <button  type="button" class="btn btn-outline-light start all-buttons"
+                                        <button type="button" class="btn btn-outline-light start all-buttons"
                                             data-bs-toggle="modal" data-bs-target="#exampleModal"
                                             style="width: 100%;">Read more</button>
                                     </div>
@@ -238,7 +293,7 @@
                                             consectetur adipisicing elit. Sequi, labore?</p>
                                     </div>
                                     <div>
-                                        <button  type="button" class="btn btn-outline-light start all-buttons"
+                                        <button type="button" class="btn btn-outline-light start all-buttons"
                                             data-bs-toggle="modal" data-bs-target="#exampleModal"
                                             style="width: 100%;">Read more</button>
                                     </div>
@@ -262,7 +317,7 @@
                                             consectetur adipisicing elit. Sequi, labore?</p>
                                     </div>
                                     <div>
-                                        <button  type="button" class="btn btn-outline-light start all-buttons"
+                                        <button type="button" class="btn btn-outline-light start all-buttons"
                                             data-bs-toggle="modal" data-bs-target="#exampleModal"
                                             style="width: 100%;">Read more</button>
                                     </div>
@@ -286,7 +341,7 @@
                                             consectetur adipisicing elit. Sequi, labore?</p>
                                     </div>
                                     <div>
-                                        <button  type="button" class="btn btn-outline-light start all-buttons"
+                                        <button type="button" class="btn btn-outline-light start all-buttons"
                                             data-bs-toggle="modal" data-bs-target="#exampleModal"
                                             style="width: 100%;">Read more</button>
                                     </div>
@@ -312,7 +367,7 @@
                                             consectetur adipisicing elit. Sequi, labore?</p>
                                     </div>
                                     <div>
-                                        <button  type="button" class="btn btn-outline-light start all-buttons"
+                                        <button type="button" class="btn btn-outline-light start all-buttons"
                                             data-bs-toggle="modal" data-bs-target="#exampleModal"
                                             style="width: 100%;">Read more</button>
                                     </div>
@@ -336,7 +391,7 @@
                                             consectetur adipisicing elit. Sequi, labore?</p>
                                     </div>
                                     <div>
-                                        <button  type="button" class="btn btn-outline-light start all-buttons"
+                                        <button type="button" class="btn btn-outline-light start all-buttons"
                                             data-bs-toggle="modal" data-bs-target="#exampleModal"
                                             style="width: 100%;">Read more</button>
                                     </div>
@@ -360,7 +415,7 @@
                                             consectetur adipisicing elit. Sequi, labore?</p>
                                     </div>
                                     <div>
-                                        <button  type="button" class="btn btn-outline-light start all-buttons"
+                                        <button type="button" class="btn btn-outline-light start all-buttons"
                                             data-bs-toggle="modal" data-bs-target="#exampleModal"
                                             style="width: 100%;">Read more</button>
                                     </div>
@@ -370,13 +425,29 @@
                     </div>
                 </div>
             </div>
-            <button type="button" id="loadButton" class="btn btn-outline-primary" style="margin-bottom: 1rem;">Load More</button>
-            <div style="margin-bottom: 2rem;">Showing
+            <button type="button" id="loadButton" class="btn btn-outline-primary"
+                style="margin-bottom: 0.5rem; width: 10.5rem;">Load More</button>
+            <div style="margin-bottom: 2rem;" class="text-muted">Showing
                 <span id="cardCount">9</span> of
-                <span id="cardTotal"></span> cards
+                <span id="cardTotal"></span> posts
             </div>
     </main>
-    <footer></footer>
+    <footer>
+        <div class="mask mask-custom" style="height: 15rem; width: 100%; backdrop-filter: blur(4px);
+            background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
+            <div class="d-flex flex-row justify-content-around align-items-center text-white fw-lighter" style="padding: 1rem">
+                <p class="cursor"><small>Contact us</small></p>
+                <p class="cursor"><small>Became an editor</small></p>
+                <p class="cursor"><small>Travels</small></p>
+                <p class="cursor"><small>Send your pictures</small></p>
+            </div>
+            <div class="d-flex flex-column justify-content-center align-items-center h-40">
+                <h1 class="text-light fw-lighter display-1" style="letter-spacing: 1rem;">NATURE PEACE</h1>
+                <p class="text-white fw-lighter h4" style="letter-spacing: 0.75rem;">A blog to make you breath again
+                </p>
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>

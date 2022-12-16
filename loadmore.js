@@ -6,6 +6,7 @@ let cardIncrease = 0;
 const pageCount = Math.ceil((cardLimit / cardIncrease));
 let currentPage = 1;
 let endRange;
+let counterPositionPage = 0;
 let cardsCounter = 9;
 let cardDiv = `
                 <div class="div-card-container col-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
@@ -92,21 +93,32 @@ loadButton.addEventListener('click', function(){
         divCardContainer = document.getElementsByClassName("div-card-container");
     for(let i = 99; i>=cardLimit; i--){
         if(divCardContainer[i]){
-        divCardContainer[i].style.visibility="hidden";
+        divCardContainer[i].style.display="none";
         }
     }}, 100);
 });
 
 function updatePostsData() {
+   /*  counterPositionPage+=3;
+    sessionStorage.setItem("cardIncrease", counterPositionPage); */
     cardIncrease = 3;
     cardsCounter += 9;
-    cardCount.innerText = cardsCounter;
-    console.log({
-        endRange
-    })
+    if(cardsCounter<cardLimit){
+        cardCount.innerText = cardsCounter;
+    } else {
+        cardsCounter=cardLimit;
+        cardCount.innerText = cardLimit;
+    }
     fetchPosts();
     fetchImages();
 }
+/* 
+cardIncrease = sessionStorage.getItem("cardIncrease");
+if (cardIncrease == null) {
+    cardIncrease = 0;
+} else {
+    cardIncrease = sessionStorage.getItem("cardIncrease");
+} */
 
 cardLimit = localStorage.getItem("cardLimit");
 if (cardLimit == null) {
@@ -123,7 +135,7 @@ function updateNumberOfCards() {
 }
 
 const handleButtonStatus = () => {
-    if (cardsCounter === 99) {
+    if (cardsCounter == cardLimit) {
         loadButton.classList.add("disabled");
         loadButton.setAttribute("disabled", true);
     }
@@ -146,3 +158,5 @@ const addCards = (pageIndex) => {
         createCard(i);
     }
 };
+
+
