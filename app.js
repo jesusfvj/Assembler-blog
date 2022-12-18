@@ -32,7 +32,9 @@ gridParentContainer.addEventListener('click', showModalApi, false);
 editButton.addEventListener('click', editPost);
 buttonComments.addEventListener('click', changeNameButtonComments);
 deleteButton.addEventListener('click', deletePost);
+deleteButton.addEventListener('click', fetchPosts);
 document.addEventListener("DOMContentLoaded", fetchPosts);
+document.addEventListener("DOMContentLoaded", fetchImageHeader);
 document.addEventListener("DOMContentLoaded", fetchImages);
 heartShape.addEventListener('mouseover', effectOnHeartIn);
 heartShape.addEventListener('mouseout', effectOnHeartOut);
@@ -51,6 +53,7 @@ function effectOnHeartIn() {
 }
 
 function likeCounter() {
+
   counterLikeHeart++;
   likeHeart.innerText = counterLikeHeart;
 
@@ -71,28 +74,31 @@ function likeCounter() {
 }
 
 function fetchPosts() {
+  console.log("hello")
   fetch("http://localhost:3000/posts")
     .then((response) => response.json())
     .then((data) => {
       allButtons = document.getElementsByClassName("all-buttons");
       for (let i = 0; i < data.length; i++) {
-        if (titlePost[i]) {
+        if (allButtons[i]) {
           titlePost[i].innerText = data[i].title;
           bodyPost[i].innerText = data[i].body.substring(0, 85) + '...';
-          if (allButtons[i]) {
-            let hello = allButtons[i];
-            allButtons[i].setAttribute("id", data[i].id);
+          allButtons[i].setAttribute("id", data[i].id);
+          if (data[i].likes) {
+            likeHeart.innerText = data[i].likes;
           }
         }
       }
     })
 }
 
-fetch("https://api.unsplash.com/search/photos?query=national-geographic&per_page=9&color=blue&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
-  .then((response) => response.json())
-  .then((data) => {
-    unsplashImageNav.style.backgroundImage = "url('https://source.unsplash.com/9wg5jCEPBsw/1600x900')";
-  });
+function fetchImageHeader() {
+  fetch("https://api.unsplash.com/search/photos?query=national-geographic&per_page=9&color=blue&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
+    .then((response) => response.json())
+    .then((data) => {
+      unsplashImageNav.style.backgroundImage = "url('https://source.unsplash.com/9wg5jCEPBsw/1600x900')";
+    });
+}
 
 function fetchImages() {
   fetch("https://api.unsplash.com/search/photos?query=forest,mountains&orientation=landscape&per_page=100&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
@@ -114,154 +120,160 @@ function showModalApi(event) {
   let commentCounter = 0;
   let userId;
 
-  for (let w = 0; w < commentData.length; w++) {
-    commentData[w].remove();
-    w--;
+  for (let i = 0; i < commentData.length; i++) {
+    commentData[i].remove();
+    i--;
   }
 
   fetch("http://localhost:3000/posts")
     .then((response) => response.json())
     .then((data) => {
-        for (let x = 0; x < data.length; x++) {
-          if (data[x].id === idCard) {
-            modalTitle.innerText = data[x].title;
-            infoModalBody.innerText = data[x].body;
-            userId = data[x].userId;
-            formControlTextareaOne.value = data[x].title;
-            formControlTextareaTwo.value = data[x].body;
-            if (data[x].likes) {
-              likeHeart.innerText = data[x].likes;
-            } else {
-              likeHeart.innerText = 0;
-            }
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].id === idCard) {
+          modalTitle.innerText = data[i].title;
+          infoModalBody.innerText = data[i].body;
+          userId = data[i].userId;
+          formControlTextareaOne.value = data[i].title;
+          formControlTextareaTwo.value = data[i].body;
+          if (data[i].likes) {
+            likeHeart.innerText = data[i].likes;
+          } else {
+            likeHeart.innerText = 0;
           }
         }
-      })
+      }
+    })
 
-      fetch("http://localhost:3000/users")
-      .then((response) => response.json())
-      .then((data) => {
-        for (let x = 0; x < data.length; x++) {
-          if (data[x].id === userId) {
-            userData[0].innerHTML = '<small>' + data[x].username + '</small>';
-            userData[1].innerHTML = '<small>' + data[x].email + '</small>';
+  fetch("http://localhost:3000/users")
+    .then((response) => response.json())
+    .then((data) => {
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].id === userId) {
+          userData[0].innerHTML = '<small>' + data[i].username + '</small>';
+          userData[1].innerHTML = '<small>' + data[i].email + '</small>';
+        }
+      }
+    })
+
+  fetch("http://localhost:3000/comments")
+    .then((response) => response.json())
+    .then((data) => {
+      let j = 0;
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].postId === idCard && commentCounter < 2) {
+          const paragraphCommentName = document.createElement('p');
+          paragraphCommentName.classList.add('my-0', 'fs-6', 'fw-bold', 'comment-data', 'border-top', 'mt-3', 'pt-3');
+          commentContainer.insertBefore(paragraphCommentName, collapseCommentsContainer);
+          const paragraphCommentEmail = document.createElement('p');
+          paragraphCommentEmail.classList.add('my-0', 'fs-6', 'comment-data', 'fst-italic');
+          commentContainer.insertBefore(paragraphCommentEmail, collapseCommentsContainer);
+          const paragraphCommentComment = document.createElement('p');
+          paragraphCommentComment.classList.add('my-0', 'fs-6', 'fw-light', 'comment-data');
+          commentContainer.insertBefore(paragraphCommentComment, collapseCommentsContainer);
+          commentData = document.getElementsByClassName("comment-data");
+          commentCounter++;
+          for (j; j < commentData.length; j += 3) {
+            commentData[j].innerText = data[i].name;
+            commentData[j + 1].innerText = data[i].email;
+            commentData[j + 2].innerText = data[i].body;
+          }
+        } else if (data[i].postId === idCard && commentCounter >= 2) {
+          const paragraphCommentName = document.createElement('p');
+          paragraphCommentName.classList.add('my-0', 'fs-6', 'fw-bold', 'comment-data', 'border-top', 'mt-3', 'pt-3');
+          collapseComments.appendChild(paragraphCommentName);
+          const paragraphCommentEmail = document.createElement('p');
+          paragraphCommentEmail.classList.add('my-0', 'fs-6', 'comment-data', 'fst-italic');
+          collapseComments.appendChild(paragraphCommentEmail);
+          const paragraphCommentComment = document.createElement('p');
+          paragraphCommentComment.classList.add('my-0', 'fs-6', 'fw-light', 'comment-data');
+          collapseComments.appendChild(paragraphCommentComment);
+          commentData = document.getElementsByClassName("comment-data");
+          for (j; j < commentData.length; j += 3) {
+            commentData[j].innerText = data[i].name;
+            commentData[j + 1].innerText = data[i].email;
+            commentData[j + 2].innerText = data[i].body;
           }
         }
-      })
+      }
+    })
 
-      fetch("http://localhost:3000/comments")
-      .then((response) => response.json())
-      .then((data) => {
-        let z = 0;
-        for (let x = 0; x < data.length; x++) {
-          if (data[x].postId === idCard && commentCounter < 2) {
-            const paragraphCommentName = document.createElement('p');
-            paragraphCommentName.classList.add('my-0', 'fs-6', 'fw-bold', 'comment-data', 'border-top', 'mt-3', 'pt-3');
-            commentContainer.insertBefore(paragraphCommentName, collapseCommentsContainer);
-            const paragraphCommentEmail = document.createElement('p');
-            paragraphCommentEmail.classList.add('my-0', 'fs-6', 'comment-data', 'fst-italic');
-            commentContainer.insertBefore(paragraphCommentEmail, collapseCommentsContainer);
-            const paragraphCommentComment = document.createElement('p');
-            paragraphCommentComment.classList.add('my-0', 'fs-6', 'fw-light', 'comment-data');
-            commentContainer.insertBefore(paragraphCommentComment, collapseCommentsContainer);
-            commentData = document.getElementsByClassName("comment-data");
-            commentCounter++;
-            for (z; z < commentData.length; z += 3) {
-              commentData[z].innerText = data[x].name;
-              commentData[z + 1].innerText = data[x].email;
-              commentData[z + 2].innerText = data[x].body;
-            }
-          } else if (data[x].postId === idCard && commentCounter >= 2) {
-            const paragraphCommentName = document.createElement('p');
-            paragraphCommentName.classList.add('my-0', 'fs-6', 'fw-bold', 'comment-data', 'border-top', 'mt-3', 'pt-3');
-            collapseComments.appendChild(paragraphCommentName);
-            const paragraphCommentEmail = document.createElement('p');
-            paragraphCommentEmail.classList.add('my-0', 'fs-6', 'comment-data', 'fst-italic');
-            collapseComments.appendChild(paragraphCommentEmail);
-            const paragraphCommentComment = document.createElement('p');
-            paragraphCommentComment.classList.add('my-0', 'fs-6', 'fw-light', 'comment-data');
-            collapseComments.appendChild(paragraphCommentComment);
-            commentData = document.getElementsByClassName("comment-data");
-            for (z; z < commentData.length; z += 3) {
-              commentData[z].innerText = data[x].name;
-              commentData[z + 1].innerText = data[x].email;
-              commentData[z + 2].innerText = data[x].body;
-            }
-          }
+  fetch("https://api.unsplash.com/search/photos?query=forest,mountains&orientation=landscape&per_page=9&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
+    .then((response) => response.json())
+    .then((data) => {
+      unsplashImageModal = document.getElementsByClassName("unsplash-image-modal");
+      for (let i = 0; i < unsplashImageModal.length; i++) {
+        if (unsplashImageModal[i]) {
+          unsplashImageModal[i].style.backgroundImage = "url('https://source.unsplash.com/" + data.results[idCard - 1].id + "/1600x900')";
         }
-      })
-
-      fetch("https://api.unsplash.com/search/photos?query=forest,mountains&orientation=landscape&per_page=9&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
-      .then((response) => response.json())
-      .then((data) => {
-        unsplashImageModal = document.getElementsByClassName("unsplash-image-modal");
-        for (let l = 0; l < unsplashImageModal.length; l++) {
-          if (unsplashImageModal[l]) {
-            unsplashImageModal[l].style.backgroundImage = "url('https://source.unsplash.com/" + data.results[idCard - 1].id + "/1600x900')";
-          }
-        }
-      });
-    }
-
-  let allButtonsValue;
-
-  function deletePost() {
-    const deleteMethod = {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      },
-    }
-    fetch("http://localhost:3000/posts/" + idCard, deleteMethod)
-      .then(response => response.json())
-      .then(data => console.log("delete method"))
-      .catch(error => console.log(error))
-
-  }
-
-  function editPost() {
-    const postModify = {
-      title: formControlTextareaOne.value,
-      body: formControlTextareaTwo.value
-    }
-    const putMethod = {
-      method: 'PATCH',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      },
-      body: JSON.stringify(postModify)
-    }
-    fetch("http://localhost:3000/posts/" + idCard, putMethod)
-      .then(response => response.json())
-      .then(data => console.log("put method"))
-      .catch(error => console.log(error));
-  }
-
-  Array.from(document.getElementsByClassName('showmodal')).forEach((e) => {
-    e.addEventListener('click', function (element) {
-      element.preventDefault();
-      if (e.hasAttribute('data-show-modal')) {
-        showModal(e.getAttribute('data-show-modal'));
       }
     });
-  });
+}
 
-  function showModal(modal) {
-    const mid = document.getElementById(modal);
-    let myModal = new bootstrap.Modal(mid);
-    myModal.show();
+let allButtonsValue;
+
+function deletePost() {
+  const deleteMethod = {
+    method: 'DELETE',
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8'
+    },
   }
+  fetch("http://localhost:3000/posts/" + idCard, deleteMethod)
+    .then(response => response.json())
+    .then(data => {
+      return reloadContent();
+    })
+    .catch(error => console.log(error))
+}
 
-  function changeNameButtonComments() {
-    if (counterBtnComments == true) {
-      viewComments.innerText = "View less";
-      counterBtnComments = false;
-    } else {
-      viewComments.innerText = "View comments";
-      counterBtnComments = true;
+function reloadContent() {
+  fetchPosts();
+  fetchImages();
+}
+
+function editPost() {
+  const postModify = {
+    title: formControlTextareaOne.value,
+    body: formControlTextareaTwo.value
+  }
+  const putMethod = {
+    method: 'PATCH',
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8'
+    },
+    body: JSON.stringify(postModify)
+  }
+  fetch("http://localhost:3000/posts/" + idCard, putMethod)
+    .then(response => response.json())
+    .then(data => console.log("put method"))
+    .catch(error => console.log(error));
+}
+
+Array.from(document.getElementsByClassName('showmodal')).forEach((e) => {
+  e.addEventListener('click', function (element) {
+    element.preventDefault();
+    if (e.hasAttribute('data-show-modal')) {
+      showModal(e.getAttribute('data-show-modal'));
     }
-  }
+  });
+});
 
-  for (let cursorIterador=0; cursorIterador < cursor.length; cursorIterador++){
-  cursor[cursorIterador].style.cursor = "pointer";
+function showModal(modal) {
+  const mid = document.getElementById(modal);
+  let myModal = new bootstrap.Modal(mid);
+  myModal.show();
+}
+
+function changeNameButtonComments() {
+  if (counterBtnComments == true) {
+    viewComments.innerText = "View less";
+    counterBtnComments = false;
+  } else {
+    viewComments.innerText = "View comments";
+    counterBtnComments = true;
   }
+}
+
+for (let cursorIterador = 0; cursorIterador < cursor.length; cursorIterador++) {
+  cursor[cursorIterador].style.cursor = "pointer";
+}

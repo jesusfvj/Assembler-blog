@@ -1,6 +1,7 @@
 const loadButton = document.getElementById("loadButton");
 const cardCount = document.getElementById("cardCount");
 const cardTotal = document.getElementById("cardTotal");
+const buttonAndPostCounter = document.getElementById("buttonAndPostCounter");
 let cardLimit;
 let cardIncrease = 0;
 const pageCount = Math.ceil((cardLimit / cardIncrease));
@@ -9,7 +10,7 @@ let endRange;
 let counterPositionPage = 0;
 let cardsCounter = 9;
 let cardDiv = `
-                <div class="div-card-container col-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
+                <div class="div-card-container col-10 col-sm-8 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
                         <div class="unsplash-image bg-image card shadow-1-strong"
                             style="background-image: url('https://mdbootstrap.com/img/new/slides/121.jpg'); background-size: cover; background-position: center; height: 30rem;">
@@ -33,7 +34,7 @@ let cardDiv = `
                         </div>
                     </div>
                 </div>
-                <div class="div-card-container col-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
+                <div class="div-card-container col-10 col-sm-8 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
                         <div class="unsplash-image bg-image card shadow-1-strong"
                             style="background-image: url('https://mdbootstrap.com/img/new/slides/121.jpg'); background-size: cover; background-position: center; height: 30rem;">
@@ -57,7 +58,7 @@ let cardDiv = `
                         </div>
                     </div>
                 </div>
-                <div class="div-card-container col-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
+                <div class="div-card-container col-10 col-sm-8 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
                         <div class="unsplash-image bg-image card shadow-1-strong"
                             style="background-image: url('https://mdbootstrap.com/img/new/slides/121.jpg'); background-size: cover; background-position: center; height: 30rem;">
@@ -88,24 +89,25 @@ loadButton.addEventListener('click', updatePostsData);
 loadButton.addEventListener("click", () => {
     addCards(currentPage + 1);
 });
-loadButton.addEventListener('click', function(){
-    setTimeout(function(){
+loadButton.addEventListener('click', function () {
+    setTimeout(function () {
         divCardContainer = document.getElementsByClassName("div-card-container");
-    for(let i = 99; i>=cardLimit; i--){
-        if(divCardContainer[i]){
-        divCardContainer[i].style.display="none";
+        for (let i = 99; i >= cardLimit; i--) {
+            if (divCardContainer[i]) {
+                divCardContainer[i].style.display = "none";
+            }
         }
-    }}, 100);
+    }, 100);
 });
 
 function updatePostsData() {
 
     cardIncrease = 3;
     cardsCounter += 9;
-    if(cardsCounter<cardLimit){
+    if (cardsCounter < cardLimit) {
         cardCount.innerText = cardsCounter;
     } else {
-        cardsCounter=cardLimit;
+        cardsCounter = cardLimit;
         cardCount.innerText = cardLimit;
     }
     fetchPosts();
@@ -136,8 +138,8 @@ const handleButtonStatus = () => {
 
 const createCard = (index) => {
     const card = document.createElement("div");
-    card.className = "row";
-    gridParentContainer.insertBefore(card, loadButton);
+    card.className = "row d-flex flex-row justify-content-center align-items-center";
+    gridParentContainer.insertBefore(card, buttonAndPostCounter);
     card.innerHTML = cardDiv;
 };
 
@@ -151,5 +153,3 @@ const addCards = (pageIndex) => {
         createCard(i);
     }
 };
-
-
