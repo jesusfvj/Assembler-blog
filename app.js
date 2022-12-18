@@ -28,6 +28,7 @@ let idCard;
 let counterLikeHeart;
 let counterBtnComments = true;
 let arrayLikes = [];
+let allButtonsValue;
 
 gridParentContainer.addEventListener('click', showModalApi, false);
 editButton.addEventListener('click', editPost);
@@ -86,7 +87,7 @@ function setArrayLikes() {
     .then((response) => response.json())
     .then((data) => {
       for (let i = 0; i < data.length; i++) {
-       arrayLikes.push(false);
+        arrayLikes.push(false);
       }
       localStorage.setItem("likes", JSON.stringify(arrayLikes));
     })
@@ -225,8 +226,6 @@ function showModalApi(event) {
       }
     });
 }
-
-let allButtonsValue;
 
 function deletePost() {
   const deleteMethod = {
