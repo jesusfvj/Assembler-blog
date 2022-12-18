@@ -25,8 +25,9 @@ let cursor = document.getElementsByClassName("cursor");
 let allButtons;
 let counterPhotos;
 let idCard;
-let counterLikeHeart = 0;
+let counterLikeHeart;
 let counterBtnComments = true;
+let arrayLikes = [];
 
 gridParentContainer.addEventListener('click', showModalApi, false);
 editButton.addEventListener('click', editPost);
@@ -36,6 +37,7 @@ deleteButton.addEventListener('click', fetchPosts);
 document.addEventListener("DOMContentLoaded", fetchPosts);
 document.addEventListener("DOMContentLoaded", fetchImageHeader);
 document.addEventListener("DOMContentLoaded", fetchImages);
+document.addEventListener("DOMContentLoaded", setArrayLikes);
 heartShape.addEventListener('mouseover', effectOnHeartIn);
 heartShape.addEventListener('mouseout', effectOnHeartOut);
 heartShape.addEventListener('click', likeCounter);
@@ -53,28 +55,44 @@ function effectOnHeartIn() {
 }
 
 function likeCounter() {
+  arrayLikes = JSON.parse(localStorage.getItem("likes"));
 
-  counterLikeHeart++;
-  likeHeart.innerText = counterLikeHeart;
+  if (arrayLikes[idCard] == false) {
+    counterLikeHeart++;
+    likeHeart.innerText = counterLikeHeart;
+    arrayLikes[idCard] = true;
+    localStorage.setItem("likes", JSON.stringify(arrayLikes));
 
-  const postModify = {
-    likes: counterLikeHeart,
+    const postModify = {
+      likes: counterLikeHeart,
+    }
+    const putMethod = {
+      method: 'PATCH',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      },
+      body: JSON.stringify(postModify)
+    }
+    fetch("http://localhost:3000/posts/" + idCard, putMethod)
+      .then(response => response.json())
+      .then(data => console.log("put method"))
+      .catch(error => console.log(error));
+    counterLikeHeart = 0;
   }
-  const putMethod = {
-    method: 'PATCH',
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8'
-    },
-    body: JSON.stringify(postModify)
-  }
-  fetch("http://localhost:3000/posts/" + idCard, putMethod)
-    .then(response => response.json())
-    .then(data => console.log("put method"))
-    .catch(error => console.log(error));
+}
+
+function setArrayLikes() {
+  fetch("http://localhost:3000/posts")
+    .then((response) => response.json())
+    .then((data) => {
+      for (let i = 0; i < data.length; i++) {
+       arrayLikes.push(false);
+      }
+      localStorage.setItem("likes", JSON.stringify(arrayLikes));
+    })
 }
 
 function fetchPosts() {
-  console.log("hello")
   fetch("http://localhost:3000/posts")
     .then((response) => response.json())
     .then((data) => {
@@ -84,9 +102,6 @@ function fetchPosts() {
           titlePost[i].innerText = data[i].title;
           bodyPost[i].innerText = data[i].body.substring(0, 85) + '...';
           allButtons[i].setAttribute("id", data[i].id);
-          if (data[i].likes) {
-            likeHeart.innerText = data[i].likes;
-          }
         }
       }
     })
@@ -137,8 +152,10 @@ function showModalApi(event) {
           formControlTextareaTwo.value = data[i].body;
           if (data[i].likes) {
             likeHeart.innerText = data[i].likes;
+            counterLikeHeart = data[i].likes;
           } else {
             likeHeart.innerText = 0;
+            counterLikeHeart = 0;
           }
         }
       }
