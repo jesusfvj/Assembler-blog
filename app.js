@@ -4,7 +4,6 @@ const cardBody = document.getElementsByClassName("card-body");
 const gridParentContainer = document.getElementById("gridParentContainer");
 const modalTitle = document.getElementsByClassName("modal-title")[0];
 const infoModalBody = document.getElementsByClassName("info-modal-body")[0];
-let unsplashImageModal = document.getElementsByClassName("unsplash-image-modal");
 const unsplashImageNav = document.getElementsByClassName("unsplash-image-nav")[0];
 const userData = document.getElementsByClassName("user-data");
 const unsplashImage = document.getElementsByClassName("unsplash-image");
@@ -19,7 +18,13 @@ const editButton = document.getElementById("editButton");
 const deleteButton = document.getElementById("deleteButton");
 const viewComments = document.getElementById("viewComments");
 const buttonComments = document.getElementById("buttonComments");
+const collapseProperty = document.getElementById("collapseProperty");
+const collapseCommentsId = document.getElementById("collapseCommentsId");
 const heartShape = document.getElementById("heartShape");
+const liveToastDelete = document.getElementById('liveToastDelete')
+const liveToastEdit = document.getElementById('liveToastEdit')
+let cardFather = document.getElementsByClassName("card-father")[0];
+let unsplashImageModal = document.getElementsByClassName("unsplash-image-modal");
 let divCardContainer = document.getElementsByClassName("div-card-container");
 let cursor = document.getElementsByClassName("cursor");
 let allButtons;
@@ -29,19 +34,59 @@ let counterLikeHeart;
 let counterBtnComments = true;
 let arrayLikes = [];
 let allButtonsValue;
+let commentCounter;
+let idNumber;
+let numberCounter;
+clickEvent = new CustomEvent('click');
 
-gridParentContainer.addEventListener('click', showModalApi, false);
-editButton.addEventListener('click', editPost);
-buttonComments.addEventListener('click', changeNameButtonComments);
-deleteButton.addEventListener('click', deletePost);
-deleteButton.addEventListener('click', fetchPosts);
 document.addEventListener("DOMContentLoaded", fetchPosts);
 document.addEventListener("DOMContentLoaded", fetchImageHeader);
 document.addEventListener("DOMContentLoaded", fetchImages);
 document.addEventListener("DOMContentLoaded", setArrayLikes);
+document.addEventListener("DOMContentLoaded", setCursorMouse);
+document.addEventListener("DOMContentLoaded", setIdentificationToDivs);
+gridParentContainer.addEventListener('click', showModalApi, false);
+buttonComments.addEventListener('click', changeNameButtonComments);
+buttonComments.addEventListener('click', loadMoreComments);
 heartShape.addEventListener('mouseover', effectOnHeartIn);
 heartShape.addEventListener('mouseout', effectOnHeartOut);
 heartShape.addEventListener('click', likeCounter);
+deleteButton.addEventListener('click', animationDelete);
+deleteButton.addEventListener('click', showToastDelete);
+editButton.addEventListener('click', showtoastEdit)
+editButton.addEventListener('click', animationEdit);
+
+function showtoastEdit() {
+  setTimeout(function () {
+    const toast = new bootstrap.Toast(liveToastEdit)
+    toast.show();
+  }, 800)
+}
+
+function showToastDelete() {
+  setTimeout(function () {
+    const toast = new bootstrap.Toast(liveToastDelete);
+    toast.show();
+  }, 800)
+}
+
+function animationDelete() {
+  cardFather = document.getElementsByClassName("div-card-container");
+  cardFather[idNumber - 1].classList.add('animation-delete');
+  setTimeout(deletePost, 800);
+  setTimeout(function () {
+    cardFather[idNumber - 1].classList.remove('animation-delete')
+  }, 800)
+}
+
+function animationEdit() {
+  cardFather = document.getElementsByClassName("div-card-container");
+  cardFather[idNumber - 1].classList.add('animation-edit');
+  setTimeout(editPost, 800);
+  setTimeout(function () {
+    cardFather[idNumber - 1].classList.remove('animation-edit')
+  }, 800)
+}
 
 function effectOnHeartOut() {
   heartShape.setAttribute("width", "25")
@@ -57,13 +102,11 @@ function effectOnHeartIn() {
 
 function likeCounter() {
   arrayLikes = JSON.parse(localStorage.getItem("likes"));
-
-  if (arrayLikes[idCard] == false) {
+  if (arrayLikes[idCard - 1] == false) {
     counterLikeHeart++;
     likeHeart.innerText = counterLikeHeart;
-    arrayLikes[idCard] = true;
+    arrayLikes[idCard - 1] = true;
     localStorage.setItem("likes", JSON.stringify(arrayLikes));
-
     const postModify = {
       likes: counterLikeHeart,
     }
@@ -90,6 +133,21 @@ function setArrayLikes() {
         arrayLikes.push(false);
       }
       localStorage.setItem("likes", JSON.stringify(arrayLikes));
+    })
+}
+
+function setIdentificationToDivs() {
+  numberCounter = 0;
+  fetch("http://localhost:3000/posts")
+    .then((response) => response.json())
+    .then((data) => {
+      allButtons = document.getElementsByClassName("all-buttons");
+      for (let i = 0; i < data.length; i++) {
+        if (allButtons[i]) {
+          numberCounter++;
+          allButtons[i].setAttribute("number", numberCounter);
+        }
+      }
     })
 }
 
@@ -132,15 +190,17 @@ function fetchImages() {
 
 function showModalApi(event) {
   idCard = Number(event.target.id);
+  idNumber = Number(event.target.getAttribute('number'));
+  console.log({
+    idNumber
+  })
   let commentData = document.getElementsByClassName("comment-data");
-  let commentCounter = 0;
+  commentCounter = 0;
   let userId;
-
   for (let i = 0; i < commentData.length; i++) {
     commentData[i].remove();
     i--;
   }
-
   fetch("http://localhost:3000/posts")
     .then((response) => response.json())
     .then((data) => {
@@ -161,7 +221,6 @@ function showModalApi(event) {
         }
       }
     })
-
   fetch("http://localhost:3000/users")
     .then((response) => response.json())
     .then((data) => {
@@ -172,7 +231,6 @@ function showModalApi(event) {
         }
       }
     })
-
   fetch("http://localhost:3000/comments")
     .then((response) => response.json())
     .then((data) => {
@@ -195,26 +253,9 @@ function showModalApi(event) {
             commentData[j + 1].innerText = data[i].email;
             commentData[j + 2].innerText = data[i].body;
           }
-        } else if (data[i].postId === idCard && commentCounter >= 2) {
-          const paragraphCommentName = document.createElement('p');
-          paragraphCommentName.classList.add('my-0', 'fs-6', 'fw-bold', 'comment-data', 'border-top', 'mt-3', 'pt-3');
-          collapseComments.appendChild(paragraphCommentName);
-          const paragraphCommentEmail = document.createElement('p');
-          paragraphCommentEmail.classList.add('my-0', 'fs-6', 'comment-data', 'fst-italic');
-          collapseComments.appendChild(paragraphCommentEmail);
-          const paragraphCommentComment = document.createElement('p');
-          paragraphCommentComment.classList.add('my-0', 'fs-6', 'fw-light', 'comment-data');
-          collapseComments.appendChild(paragraphCommentComment);
-          commentData = document.getElementsByClassName("comment-data");
-          for (j; j < commentData.length; j += 3) {
-            commentData[j].innerText = data[i].name;
-            commentData[j + 1].innerText = data[i].email;
-            commentData[j + 2].innerText = data[i].body;
-          }
         }
       }
     })
-
   fetch("https://api.unsplash.com/search/photos?query=forest,mountains&orientation=landscape&per_page=9&client_id=IjZZA7aI48XODGPFdLl7x5c4VhwcA7Y4nh7vwHHuCNM")
     .then((response) => response.json())
     .then((data) => {
@@ -225,6 +266,9 @@ function showModalApi(event) {
         }
       }
     });
+  if (counterBtnComments == false) {
+    buttonComments.dispatchEvent(clickEvent);
+  }
 }
 
 function deletePost() {
@@ -239,7 +283,7 @@ function deletePost() {
     .then(data => {
       return reloadContent();
     })
-    .catch(error => console.log(error))
+    .catch(error => console.log(error));
 }
 
 function reloadContent() {
@@ -261,7 +305,10 @@ function editPost() {
   }
   fetch("http://localhost:3000/posts/" + idCard, putMethod)
     .then(response => response.json())
-    .then(data => console.log("put method"))
+    .then(data => {
+      console.log("put method");
+      return reloadContent();
+    })
     .catch(error => console.log(error));
 }
 
@@ -282,14 +329,54 @@ function showModal(modal) {
 
 function changeNameButtonComments() {
   if (counterBtnComments == true) {
-    viewComments.innerText = "View less";
+    viewComments.innerText = "View less comments";
     counterBtnComments = false;
   } else {
-    viewComments.innerText = "View comments";
+    viewComments.innerText = "View more comments";
     counterBtnComments = true;
   }
 }
 
-for (let cursorIterador = 0; cursorIterador < cursor.length; cursorIterador++) {
-  cursor[cursorIterador].style.cursor = "pointer";
+function loadMoreComments() {
+  if (counterBtnComments == false) {
+    commentCounter = 0;
+    fetch("http://localhost:3000/comments")
+      .then((response) => response.json())
+      .then((data) => {
+        let j = 6;
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].postId === idCard && commentCounter < 2) {
+            commentCounter++;
+          } else if (data[i].postId === idCard && commentCounter >= 2) {
+            const paragraphCommentName = document.createElement('p');
+            paragraphCommentName.classList.add('my-0', 'fs-6', 'fw-bold', 'comment-data', 'border-top', 'mt-3', 'pt-3');
+            collapseComments.appendChild(paragraphCommentName);
+            const paragraphCommentEmail = document.createElement('p');
+            paragraphCommentEmail.classList.add('my-0', 'fs-6', 'comment-data', 'fst-italic');
+            collapseComments.appendChild(paragraphCommentEmail);
+            const paragraphCommentComment = document.createElement('p');
+            paragraphCommentComment.classList.add('my-0', 'fs-6', 'fw-light', 'comment-data');
+            collapseComments.appendChild(paragraphCommentComment);
+            commentData = document.getElementsByClassName("comment-data");
+            for (j; j < commentData.length; j += 3) {
+              commentData[j].innerText = data[i].name;
+              commentData[j + 1].innerText = data[i].email;
+              commentData[j + 2].innerText = data[i].body;
+            }
+          }
+        }
+      })
+  } else {
+    commentData = document.getElementsByClassName("comment-data");
+    for (let i = 6; i < commentData.length; i++) {
+      commentData[i].remove();
+      i--;
+    }
+  }
+}
+
+function setCursorMouse() {
+  for (let cursorIterador = 0; cursorIterador < cursor.length; cursorIterador++) {
+    cursor[cursorIterador].style.cursor = "pointer";
+  }
 }

@@ -4,6 +4,7 @@
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"
         defer></script>
@@ -65,14 +66,14 @@
                         <div class="comment-container lh-lg border" style="margin: 2rem 0 0 0; padding: 2rem;">
                             <h5 class="fs-6 fw-bolder"><small>Comments</small></h5>
                             <div class="collapse collapse-comments-container" id="collapseCommentsId">
-                                <div class="collapse-comments">
+                                <div id="collapseProperty" class="collapse-comments">
                                 </div>
                             </div>
                             <button id="buttonComments" type="button"
                                 class="btn btn-outline-primary mr-auto comment-button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseCommentsId" aria-expanded="false"
                                 aria-controls="collapseCommentsId" style="margin-top:2rem;"><small
-                                    id="viewComments">View
+                                    id="viewComments">View more
                                     comments</small></button>
                         </div>
                     </div>
@@ -172,6 +173,28 @@
             </div>
         </div>
 
+        <!-- Toast Confirmation Edit -->
+        <div class="toast-container position-fixed top-0 start-0 p-3" style="z-index: 100;">
+            <div id="liveToastEdit" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="unsplash-image-modal bg-image card shadow-1-strong rounded-0"
+                    style="background-image: url('https://mdbootstrap.com/img/new/slides/121.jpg'); background-size: cover; background-position: center;">
+                    <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(4px);
+                     background: linear-gradient(360deg,  rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
+                        <strong class="me-auto"></strong>
+                        <button type="button" class="btn-close btn-close-white float-end" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                    </div>
+                </div>
+                <div class="toast-body">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        class="bi bi-check2" viewBox="0 0 16 16">
+                        <path
+                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                    </svg> The post was succesfully edited.
+                </div>
+            </div>
+        </div>
+
         <!-- Delete nested Modal -->
         <div class="modal fade" id="infoModal" tabindex="1" aria-labelledby="infoModalLabel" aria-hidden="true"
             data-bs-backdrop="static">
@@ -198,17 +221,39 @@
             </div>
         </div>
 
+
+        <!-- Toast Confirmation Delete -->
+        <div class="toast-container position-fixed top-0 start-0 p-3" style="z-index: 100;">
+            <div id="liveToastDelete" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="unsplash-image-modal bg-image card shadow-1-strong rounded-0"
+                    style="background-image: url('https://mdbootstrap.com/img/new/slides/121.jpg'); background-size: cover; background-position: center;">
+                    <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(4px);
+                        background: linear-gradient(360deg, rgba(0, 157, 255, 0.4),rgba(247, 85, 85, 0.4) 100%);">
+                        <strong class="me-auto"></strong>
+                        <button type="button" class="btn-close btn-close-white float-end" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                    </div>
+                </div>
+                <div class="toast-body">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        class="bi bi-check2" viewBox="0 0 16 16">
+                        <path
+                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                    </svg> The post was succesfully deleted.
+                </div>
+            </div>
+        </div>
+
         <div id="gridParentContainer"
             class="container text-center container-fluid d-flex flex-column justify-content-center align-items-center"
             style="width: 100%; margin: 0 auto">
-
             <h2 class="display-5 text-info fw-lighter" style="padding:0 0 5rem 0; letter-spacing: 0.5rem">find
                 easiness<br>in one of our posts</h2>
 
             <div class="row d-flex flex-row justify-content-center align-items-center">
                 <div class="div-card-container col-10 col-sm-8 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
-                        <div class="unsplash-image bg-image card shadow-1-strong"
+                        <div class="unsplash-image bg-image card shadow-1-strong card-father"
                             style="background-image: url('https://mdbootstrap.com/img/new/slides/121.jpg'); background-size: cover; background-position: center; height: 30rem;">
                             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
             background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
@@ -232,7 +277,7 @@
                 </div>
                 <div class="div-card-container col-10 col-sm-8 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
-                        <div class="unsplash-image bg-image card shadow-1-strong"
+                        <div class="unsplash-image bg-image card shadow-1-strong card-father"
                             style="background-image: url('https://mdbootstrap.com/img/new/slides/121.jpg'); background-size: cover; background-position: center; height: 30rem;">
                             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
             background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
@@ -256,7 +301,7 @@
                 </div>
                 <div class="div-card-container col-10 col-sm-8 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
-                        <div class="unsplash-image bg-image card shadow-1-strong"
+                        <div class="unsplash-image bg-image card shadow-1-strong card-father"
                             style="background-image: url('https://mdbootstrap.com/img/new/slides/121.jpg'); background-size: cover; background-position: center; height: 30rem;">
                             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
             background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
@@ -282,7 +327,7 @@
             <div class="row d-flex flex-row justify-content-center align-items-center">
                 <div class="div-card-container col-10 col-sm-8 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
-                        <div class="unsplash-image bg-image card shadow-1-strong"
+                        <div class="unsplash-image bg-image card shadow-1-strong card-father"
                             style="background-image: url('https://mdbootstrap.com/img/new/slides/121.jpg'); background-size: cover; background-position: center; height: 30rem;">
                             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
         background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
@@ -306,7 +351,7 @@
                 </div>
                 <div class="div-card-container col-10 col-sm-8 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
-                        <div class="unsplash-image bg-image card shadow-1-strong"
+                        <div class="unsplash-image bg-image card shadow-1-strong card-father"
                             style="background-image: url('https://mdbootstrap.com/img/new/slides/121.jpg'); background-size: cover; background-position: center; height: 30rem;">
                             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
         background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
@@ -330,7 +375,7 @@
                 </div>
                 <div class="div-card-container col-10 col-sm-8 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
-                        <div class="unsplash-image bg-image card shadow-1-strong"
+                        <div class="unsplash-image bg-image card shadow-1-strong card-father"
                             style="background-image: url('https://mdbootstrap.com/img/new/slides/121.jpg'); background-size: cover; background-position: center; height: 30rem;">
                             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
         background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
@@ -356,7 +401,7 @@
             <div class="row d-flex flex-row justify-content-center align-items-center">
                 <div class="div-card-container col-10 col-sm-8 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
-                        <div class="unsplash-image bg-image card shadow-1-strong"
+                        <div class="unsplash-image bg-image card shadow-1-strong card-father"
                             style="background-image: url('https://mdbootstrap.com/img/new/slides/121.jpg'); background-size: cover; background-position: center; height: 30rem;">
                             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
     background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
@@ -380,7 +425,7 @@
                 </div>
                 <div class="div-card-container col-10 col-sm-8 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
-                        <div class="unsplash-image bg-image card shadow-1-strong"
+                        <div class="unsplash-image bg-image card shadow-1-strong card-father"
                             style="background-image: url('https://mdbootstrap.com/img/new/slides/121.jpg'); background-size: cover; background-position: center; height: 30rem;">
                             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
     background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">
@@ -404,7 +449,7 @@
                 </div>
                 <div class="div-card-container col-10 col-sm-8 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
-                        <div class="unsplash-image bg-image card shadow-1-strong"
+                        <div class="unsplash-image bg-image card shadow-1-strong card-father"
                             style="background-image: url('https://mdbootstrap.com/img/new/slides/121.jpg'); background-size: cover; background-position: center; height: 30rem;">
                             <div class="mask mask-custom" style="height: 100%; width: 100%; backdrop-filter: blur(2px);
     background: linear-gradient(10deg, rgba(0, 157, 255, 0.4),rgba(54, 0, 142, 0.4) 100%);">

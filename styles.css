@@ -1,0 +1,43 @@
+.div-card-container.animation-delete {
+    animation: 800ms linear delete;
+}
+
+@keyframes delete {
+    0% { transform: translateX(0) }
+    20% { transform: translateX(5px); }
+    40% { transform: translateX(-5px) }
+    50% { transform: translateX(5px) }
+    60% { transform: translateX(-5px) }
+    66% { transform: translateX(5px) }
+    69% { transform: translateX(-5px); }
+    72% { transform: translateX(5px) }
+    75% { transform: translateX(-5px) }
+    78% { transform: translateX(5px) }
+    81% { transform: translateX(-5px) }
+    84% { transform: translateX(5px) }
+    87% { transform: translateX(-5px) }
+    90% { transform: translateX(5px);
+   }
+}
+
+.div-card-container.animation-edit {
+    animation: 800ms linear edit;
+}
+
+@keyframes edit {
+    0% { transform: translateY(0) }
+    20% { transform: translateY(5px); }
+    40% { transform: translateY(-5px) }
+    50% { transform: translateY(5px) }
+    60% { transform: translateY(-5px) }
+    66% { transform: translateY(5px) }
+    69% { transform: translateY(-5px); }
+    72% { transform: translateY(5px) }
+    75% { transform: translateY(-5px) }
+    78% { transform: translateY(5px) }
+    81% { transform: translateY(-5px) }
+    84% { transform: translateY(5px) }
+    87% { transform: translateY(-5px) }
+    90% { transform: translateY(5px);
+   }
+}

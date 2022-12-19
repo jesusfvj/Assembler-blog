@@ -112,6 +112,7 @@ function updatePostsData() {
     }
     fetchPosts();
     fetchImages();
+    setIdentificationToDivs();
 }
 
 
