@@ -101,7 +101,6 @@ loadButton.addEventListener('click', function () {
 });
 
 function updatePostsData() {
-
     cardIncrease = 3;
     cardsCounter += 9;
     if (cardsCounter < cardLimit) {
@@ -128,7 +127,12 @@ if (cardLimit == null) {
 function updateNumberOfCards() {
     cardLimit--;
     localStorage.setItem("cardLimit", cardLimit);
+    setTimeout(function () {
+        cardTotal.innerText = cardLimit;
+    }, 800)
+
 }
+
 
 const handleButtonStatus = () => {
     if (cardsCounter == cardLimit) {
