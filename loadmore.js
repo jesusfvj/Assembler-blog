@@ -130,9 +130,7 @@ function updateNumberOfCards() {
     setTimeout(function () {
         cardTotal.innerText = cardLimit;
     }, 800)
-
 }
-
 
 const handleButtonStatus = () => {
     if (cardsCounter == cardLimit) {
