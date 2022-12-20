@@ -289,6 +289,8 @@ function deletePost() {
 function reloadContent() {
   fetchPosts();
   fetchImages();
+  updatePostsData();
+  hidePosts();
 }
 
 function editPost() {

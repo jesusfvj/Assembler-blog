@@ -9,6 +9,7 @@ let currentPage = 1;
 let endRange;
 let counterPositionPage = 0;
 let cardsCounter = 9;
+let elementUnderObservation;
 let cardDiv = `
                 <div class="div-card-container col-10 col-sm-8 col-md-4 col-lg-4" style="margin-bottom: 5rem;">
                     <div class="card">
@@ -84,12 +85,39 @@ let cardDiv = `
                 </div>
 `;
 
-deleteButton.addEventListener('click', updateNumberOfCards);
-loadButton.addEventListener('click', updatePostsData);
-loadButton.addEventListener("click", () => {
-    addCards(currentPage + 1);
+let observador = new IntersectionObserver((entradas, observador) => {
+    entradas.forEach(entrada => {
+        if (entrada.isIntersecting) {
+            updatePostsData();
+            hidePosts();
+            showCards();
+        }
+    });
+}, {
+    rootMargin: '0px 0px 200px 0px',
+    threshold: 1.0
 });
-loadButton.addEventListener('click', function () {
+
+document.addEventListener("DOMContentLoaded", getObservedElement);
+deleteButton.addEventListener('click', updateNumberOfCards);
+
+function getObservedElement() {
+    divCardContainer = document.getElementsByClassName("div-card-container");
+    elementUnderObservation = divCardContainer[divCardContainer.length - 1];
+    observador.observe(elementUnderObservation);
+    console.log({
+        divCardContainer
+    })
+    console.log({
+        elementUnderObservation
+    })
+}
+
+function showCards() {
+    addCards(currentPage + 1);
+};
+
+function hidePosts() {
     setTimeout(function () {
         divCardContainer = document.getElementsByClassName("div-card-container");
         for (let i = 99; i >= cardLimit; i--) {
@@ -98,7 +126,7 @@ loadButton.addEventListener('click', function () {
             }
         }
     }, 100);
-});
+};
 
 function updatePostsData() {
     cardIncrease = 3;
@@ -108,12 +136,12 @@ function updatePostsData() {
     } else {
         cardsCounter = cardLimit;
         cardCount.innerText = cardLimit;
+        /* observer.disconnect(); */
     }
     fetchPosts();
     fetchImages();
     setIdentificationToDivs();
 }
-
 
 cardLimit = localStorage.getItem("cardLimit");
 if (cardLimit == null) {
@@ -139,11 +167,18 @@ const handleButtonStatus = () => {
     }
 };
 
+let counter9cards = 0;
+
 const createCard = (index) => {
     const card = document.createElement("div");
     card.className = "row d-flex flex-row justify-content-center align-items-center";
     gridParentContainer.insertBefore(card, buttonAndPostCounter);
     card.innerHTML = cardDiv;
+    counter9cards++;
+    if (counter9cards == 3) {
+        getObservedElement();
+        counter9cards = 0;
+    }
 };
 
 const addCards = (pageIndex) => {
