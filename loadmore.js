@@ -88,9 +88,9 @@ let cardDiv = `
 let observador = new IntersectionObserver((entradas, observador) => {
     entradas.forEach(entrada => {
         if (entrada.isIntersecting) {
+            showCards();
             updatePostsData();
             hidePosts();
-            showCards();
         }
     });
 }, {
